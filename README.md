@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sistem Informasi Manajemen Data Defek Kulit Sapi
 
 Sistem informasi berbasis web untuk mengotomatisasi pemodelan **MANCOVA (Multivariate Analysis of Covariance)** beserta interpretasi hasil menggunakan **Generative AI**, atas data defek kulit sapi (penyakit kaskado) yang diunggah pengguna dalam format CSV atau XLSX.
@@ -707,3 +708,6 @@ Tabel, kolom, dan contoh query ada di `docs/DATABASE.md`. Jangan commit folder `
 pip install pytest
 python -m pytest tests -q
 ```
+=======
+# DefectDSA_main
+>>>>>>> 440b28db07c9604c7f14a562a9eac48b98213316
