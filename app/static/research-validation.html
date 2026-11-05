@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validasi Struktur Data — DefectDSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/research.css">
+<link rel="stylesheet" href="css/analysis.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html" class="active">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container" style="padding-top:24px;">
+
+  <div id="researchStepper" data-active="2"></div>
+
+  <div class="research-head">
+    <h1>Validasi Struktur Data</h1>
+    <p>Sistem telah memindai file Anda. Periksa ringkasan di bawah ini dan tangani data kosong (jika ada) sebelum melanjutkan ke pemilihan variabel.</p>
+  </div>
+
+  <div class="notice notice-error" id="valError" role="alert" hidden style="max-width:980px;margin:0 auto 16px;"></div>
+
+  <div class="validation-card" id="valCard" hidden>
+    <div class="validation-banner" id="validationBanner">
+      <div class="badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <div>
+        <h3 id="validationTitle"></h3>
+        <p id="validationSubtitle"></p>
+      </div>
+    </div>
+
+    <div class="validation-stat-grid">
+      <div class="validation-stat"><div class="stat-label">BARIS</div><div class="stat-value" id="statRows">-</div></div>
+      <div class="validation-stat"><div class="stat-label">KOLOM</div><div class="stat-value" id="statCols">-</div></div>
+      <div class="validation-stat"><div class="stat-label">FORMAT</div><div class="stat-value" id="statFormat">-</div></div>
+      <div class="validation-stat"><div class="stat-label">DATA KOSONG</div><div class="stat-value" id="statMissing">-</div></div>
+    </div>
+
+    <details class="col-table-wrap" id="colDetails">
+      <summary>Lihat rincian kolom</summary>
+      <div class="table-scroll">
+        <table class="data-table">
+          <thead><tr><th>Kolom</th><th>Tipe</th><th>Nilai unik</th><th>Data kosong</th></tr></thead>
+          <tbody id="colTable"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="clean-panel" id="cleanPanel" hidden>
+      <h4>Tangani data kosong</h4>
+      <p>Analisis memerlukan data yang lengkap. Pilih cara membersihkan data kosong:</p>
+      <label class="clean-opt"><input type="radio" name="clean" value="impute" checked>
+        <div><strong>Isi otomatis</strong><span>Kolom angka diisi rata-rata atau median, kolom kategori diisi nilai yang paling sering muncul.</span>
+          <div class="clean-sub">Kolom angka diisi dengan:
+            <select id="numRule"><option value="mean">Rata-rata (mean)</option><option value="median">Median</option></select>
+          </div>
+        </div></label>
+      <label class="clean-opt"><input type="radio" name="clean" value="drop">
+        <div><strong>Hapus baris yang memiliki data kosong</strong><span>Jumlah baris akan berkurang. Cocok bila data kosong sedikit.</span></div></label>
+    </div>
+
+    <div class="validation-actions">
+      <a href="research-upload.html" class="btn btn-secondary">Unggah Ulang File</a>
+      <button type="button" class="btn btn-primary" id="nextBtn">Lanjut ke Pilih Uji</button>
+    </div>
+  </div>
+
+  <div class="upload-perks">
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Data Tidak Disimpan</h3>
+      <p>File Anda hanya diproses sementara di memori server (maksimal 1 jam). Yang tersimpan hanya ringkasan hasil analisis, bukan isi datanya.</p>
+    </div>
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+      <h3>Validasi Waktu Nyata</h3>
+      <p>Umpan balik instan pada struktur data agar analisis Anda berjalan tanpa kesalahan atau bias.</p>
+    </div>
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7l6 9M16 7l-6 9"/></svg></div>
+      <h3>Metode Menyesuaikan</h3>
+      <p>Sistem memilih ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier sesuai variabel yang Anda tentukan.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/script.js"></script>
+<script src="js/validation.js"></script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Uji Asumsi MANCOVA — DefectDSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/research.css">
+<link rel="stylesheet" href="css/analysis.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html" class="active">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container" style="padding-top:24px;">
+
+  <div id="researchStepper" data-active="5"></div>
+
+  <div class="assumption-page-head">
+    <h1 id="asTitle">Uji Asumsi</h1>
+    <p>Sistem memeriksa asumsi yang diperlukan sebelum hasil analisis ditampilkan.</p>
+  </div>
+
+  <div class="notice notice-error" id="asError" role="alert" hidden style="margin-bottom:24px;"></div>
+
+  <div class="loading-card" id="asLoading" hidden role="status">
+    <div class="spinner"></div><div><strong>Menjalankan uji asumsi dan analisis…</strong><div style="font-size:0.88rem;color:var(--slate-500);">Mohon tunggu sebentar.</div></div>
+  </div>
+
+  <div id="asContent" hidden>
+    <div class="assumption-method-bar">
+      <div>
+        <div class="eyebrow">METODE YANG DIUJI</div>
+        <div class="method-name" id="asMethod"></div>
+      </div>
+      <span class="identified-pill" id="asVars"></span>
+    </div>
+
+    <div id="asActive" class="as-active-banner" hidden></div>
+
+    <div class="as-layout">
+      <div class="as-list">
+        <h3>Hasil Pemeriksaan Asumsi</h3>
+        <div id="asList"></div>
+      </div>
+      <aside class="as-side" id="asSide"></aside>
+    </div>
+
+    <div id="asTransformWrap"></div>
+
+    <div class="assumption-footer-nav" style="margin-top:24px;">
+      <a href="research-variables.html" class="btn-link">← Kembali ke Pilih Variabel</a>
+      <a href="research-results.html" class="btn btn-primary" id="asNext">Lanjut ke Hasil →</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">DefectDSA</span>
+        <p>Platform analitik tingkat lanjut yang menyediakan alat komprehensif untuk penelitian peternakan melalui Multivariate Analysis of Covariance.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Tautan Bermanfaat</h4>
+        <ul>
+          <li><a href="panduan.html#alur">Panduan Analisis</a></li>
+          <li><a href="panduan.html#hasil">Interpretasi Output</a></li>
+          <li><a href="dokumentasi.html#faq">Pertanyaan Umum</a></li>
+          <li><a href="kontak.html">Dukungan Teknis</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Hubungi Kami</h4>
+        <ul>
+          <li>Fakultas Peternakan, Universitas Brawijaya<br>Jl. Veteran, Malang 65145</li>
+          <li>support@mancova-analytics.ub.ac.id</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:12px; text-align:left;">
+      <span>© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</span>
+      <span style="display:flex; gap:20px;">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/script.js"></script>
+<script src="js/assumptions.js"></script>
+</body>
+</html>

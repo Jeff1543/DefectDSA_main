@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilih Variabel — DefectDSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/research.css">
+<link rel="stylesheet" href="css/analysis.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html" class="active">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container" style="padding-top:24px;">
+
+  <div id="researchStepper" data-active="4"></div>
+
+  <div class="research-head">
+    <h1>Pilih Variabel Analisis</h1>
+    <p>Petakan kolom data Anda ke kategori Dependen (Y), Independen (X), dan Kovariat (Z) sesuai syarat uji yang sudah Anda pilih.</p>
+  </div>
+
+  <div class="notice notice-warn" id="varGuard" hidden style="margin-bottom:24px;"></div>
+
+  <div id="varMain" hidden>
+  <div class="var-method-bar" id="varMethodBar"></div>
+  <div class="card" style="margin-bottom:32px;">
+    <h3 style="font-size:1.1rem; margin-bottom:2px;">Pratinjau Data</h3>
+    <p style="color:var(--slate-500); font-size:0.88rem; margin-bottom:16px;" id="previewCaption">Beberapa baris pertama dari data yang Anda unggah.</p>
+    <div class="table-scroll">
+      <table class="data-table">
+        <thead><tr id="previewHead"></tr></thead>
+        <tbody id="previewBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="detected-vars-label">VARIABEL TERDETEKSI</div>
+  <div class="detected-vars-box">
+    <div class="chip-row" id="pool"></div>
+  </div>
+  <p style="color:var(--slate-500); font-size:0.84rem; margin:-8px 0 24px;">Tarik variabel ke kotak di bawah, atau klik variabel lalu klik kotak tujuannya.</p>
+
+  <div class="varconfig-grid">
+    <div>
+      <span class="varconfig-eyebrow">METRIK UTAMA</span>
+      <h3>Variabel Dependen</h3>
+      <p class="sub" id="subDep">(Respons) — numerik</p>
+      <div class="dropzone" id="dz-dependent" data-example="Contoh: luas defek kulit, pertambahan berat" data-hint="Letakkan variabel respons di sini" data-min="1"></div>
+    </div>
+
+    <div>
+      <span class="varconfig-eyebrow">FAKTOR PERCOBAAN</span>
+      <h3>Variabel Independen</h3>
+      <p class="sub" id="subInd">(Faktor) — kategorik</p>
+      <div class="dropzone" id="dz-independent" data-example="Contoh: lokasi, jenis perlakuan" data-hint="Letakkan variabel faktor di sini" data-min="1"></div>
+    </div>
+
+    <div>
+      <span class="varconfig-eyebrow">PENYESUAIAN</span>
+      <h3>Kovariat</h3>
+      <p class="sub" id="subCov">(Kontrol) — numerik</p>
+      <div class="dropzone" id="dz-covariates" data-example="Contoh: suhu, kelembapan (prediktor regresi bila tanpa faktor)" data-hint="Letakkan variabel kontrol di sini" data-min="0"></div>
+    </div>
+  </div>
+
+  <div class="text-center" style="padding-bottom:64px;">
+    <button type="button" class="btn btn-primary" id="runAnalysisBtn" style="padding:16px 40px; font-size:1rem;" disabled>Run Analysis</button>
+    <div id="varHint" style="margin-top:10px; font-size:0.85rem; color:var(--slate-500);">Pilih variabel sesuai syarat uji.</div>
+        <div style="margin-top:14px;">
+      <a href="research-methods.html" class="btn-link" style="text-decoration:underline;">← Ganti Uji</a>
+      <span style="margin:0 8px;color:var(--slate-400);">·</span>
+      <a href="research-upload.html" class="btn-link" style="text-decoration:underline;">Gunakan File Lain</a>
+    </div>
+  </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/script.js"></script>
+<script src="js/variables.js"></script>
+</body>
+</html>

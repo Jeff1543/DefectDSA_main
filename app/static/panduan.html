@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panduan Penggunaan — MANCOVA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/panduan.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="page-head">
+    <h1>Panduan Penggunaan</h1>
+    <p>Panduan singkat menggunakan MANCOVA: dari menyiapkan data, memilih variabel, sampai membaca hasil analisis dan skor kuesioner.</p>
+  </div>
+
+  <div class="doc-layout">
+    <nav class="doc-toc" aria-label="Daftar isi">
+      <h2>Daftar Isi</h2>
+      <ul>
+        <li><a href="#mulai">Memulai</a></li>
+        <li><a href="#alur">Alur Analisis Ragam</a></li>
+        <li><a href="#statdes">Statistika Deskriptif</a></li>
+        <li><a href="#data">Format Data</a></li>
+        <li><a href="#variabel">Memilih Variabel</a></li>
+        <li><a href="#metode">Penentuan Metode</a></li>
+        <li><a href="#hasil">Membaca Hasil</a></li>
+        <li><a href="#kuesioner">Analisis Kuesioner</a></li>
+        <li><a href="#portal">Portal &amp; Dashboard</a></li>
+        <li><a href="#api">API</a></li>
+        <li><a href="#faq">Tanya Jawab</a></li>
+      </ul>
+    </nav>
+
+    <div class="doc-content">
+      <section class="doc-section" id="mulai">
+        <h2>Memulai</h2>
+        <p>Klik <strong>Mulai Analisis</strong> di bagian atas halaman, lalu pilih jenis analisis yang sesuai dengan data Anda:</p>
+        <ul>
+          <li><strong>Analisis Ragam</strong>: untuk data yang sudah Anda kumpulkan dalam file CSV atau Excel. Sistem memilih metode ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier sesuai struktur variabel.</li>
+          <li><strong>Analisis Kuesioner</strong>: Anda mengisi kuesioner peternak langsung di sistem, lalu melihat skor tiap aspek dalam bentuk grafik radar.</li>
+          <li><strong>Statistika Deskriptif</strong>: unggah data lalu pilih variabel; sistem menghitung ringkasan angka, tabel frekuensi, perbandingan antar kelompok, dan korelasi.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section" id="alur">
+        <h2>Alur Analisis Ragam</h2>
+        <p>Analisis ragam berjalan dalam tujuh langkah berurutan:</p>
+        <ol class="doc-steps">
+          <li><span><strong>Unggah data.</strong> Pilih file CSV atau XLSX dari komputer Anda.</span></li>
+          <li><span><strong>Validasi data.</strong> Sistem menampilkan pratinjau tabel, jumlah baris dan kolom, serta data kosong per kolom.</span></li>
+          <li><span><strong>Pilih uji.</strong> Tentukan dulu uji yang dipakai: ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier.</span></li>
+          <li><span><strong>Pilih variabel.</strong> Kelompokkan kolom ke variabel dependen, independen, dan kovariat sesuai syarat uji yang dipilih.</span></li>
+          <li><span><strong>Uji asumsi.</strong> Setiap asumsi ditampilkan lengkap dengan hipotesis (H0 dan H1), keputusan H0 diterima atau ditolak, grafik pendukung (histogram, Q-Q plot, boxplot, grafik sebar), dan saran perbaikan. Bila ada yang tidak terpenuhi, Anda dapat mencoba transformasi data lalu menguji ulang.</span></li>
+          <li><span><strong>Hasil analisis.</strong> Tabel hasil uji multivariat ditampilkan.</span></li>
+          <li><span><strong>Wawasan &amp; interpretasi.</strong> Hasil dijelaskan dalam bahasa sehari-hari, per faktor dan kovariat, lengkap dengan grafik (boxplot per kelompok, grafik sebar), arti praktis, dan langkah selanjutnya.</span></li>
+        </ol>
+      </section>
+
+      <section class="doc-section" id="statdes">
+        <h2>Statistika Deskriptif</h2>
+        <p>Cocok untuk memahami karakteristik data sebelum analisis lanjutan. Alurnya: unggah file, pilih variabel (numerik maupun kategorik), lalu opsional pilih satu kolom untuk membandingkan antar kelompok.</p>
+        <ul>
+          <li><strong>Variabel numerik</strong>: jumlah data valid dan kosong, rata-rata, median, modus, simpangan baku, varians, nilai minimum dan maksimum, kuartil, rentang, koefisien variasi, kemiringan (skewness), keruncingan (kurtosis), jumlah pencilan, histogram, dan boxplot.</li>
+          <li><strong>Variabel kategorik</strong>: tabel frekuensi dan persentase.</li>
+          <li><strong>Perbandingan kelompok</strong>: ringkasan tiap variabel numerik per kategori.</li>
+          <li><strong>Korelasi</strong>: matriks korelasi Pearson antar variabel numerik.</li>
+        </ul>
+        <div class="doc-note">Data kosong tidak perlu dibersihkan terlebih dahulu: tiap variabel dihitung dari data yang ada dan jumlah data kosongnya dilaporkan.</div>
+      </section>
+
+      <section class="doc-section" id="data">
+        <h2>Format Data</h2>
+        <ul>
+          <li>Format file yang diterima: <code>.csv</code> dan <code>.xlsx</code>.</li>
+          <li>Ukuran maksimal file: 10 MB.</li>
+          <li>Satu baris berisi nama kolom, tiap baris di bawahnya mewakili satu pengamatan (misalnya satu ekor sapi). Judul atau keterangan di atas tabel dilewati otomatis.</li>
+        </ul>
+        <h3>Data kosong</h3>
+        <p>Pada tahap validasi, Anda dapat memilih mengisi nilai kosong otomatis atau menghapus baris yang kosong. Pengisian otomatis bekerja begini: kolom numerik diisi dengan rata-rata atau median, dan kolom kategorik diisi dengan nilai yang paling sering muncul (modus).</p>
+      </section>
+
+      <section class="doc-section" id="variabel">
+        <h2>Memilih Variabel</h2>
+        <p>Sistem membaca tipe tiap kolom (numerik atau kategorik) lalu Anda mengelompokkannya. Ketentuan minimumnya:</p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Kelompok</th><th>Tipe</th><th>Minimal</th><th>Contoh</th></tr></thead>
+            <tbody>
+              <tr><td>Dependen (Y)</td><td>Numerik</td><td>1 variabel</td><td>Luas defek di pipi, pundak, badan, pinggul, perut</td></tr>
+              <tr><td>Independen (X)</td><td>Kategorik / kode kelompok</td><td>1 variabel</td><td>Ketinggian kandang, waktu pengamatan</td></tr>
+              <tr><td>Kovariat (Z)</td><td>Numerik</td><td>Opsional</td><td>Kelimpahan lalat, suhu udara, kelembapan udara</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Kolom numerik dengan 2–10 nilai unik (misalnya kode kelompok 1, 2, 3) boleh dipakai sebagai variabel independen. Kovariat boleh dikosongkan; metode menyesuaikan otomatis (tanpa kovariat menjadi ANOVA atau MANOVA).</p>
+        <p>Satu kolom tidak boleh dipilih di lebih dari satu kelompok. Jika syarat belum terpenuhi, tombol lanjut tidak dapat dipakai dan sistem menampilkan pesan kesalahan yang menjelaskan bagian mana yang perlu diperbaiki.</p>
+      </section>
+
+      <section class="doc-section" id="metode">
+        <h2>Penentuan Metode</h2>
+        <p>Metode ditentukan dari jumlah variabel dependen dan ada tidaknya kovariat:</p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Metode</th><th>Variabel dependen</th><th>Kovariat</th></tr></thead>
+            <tbody>
+              <tr><td>ANOVA</td><td>1</td><td>Tidak ada</td></tr>
+              <tr><td>ANCOVA</td><td>1</td><td>Ada</td></tr>
+              <tr><td>MANOVA</td><td>2 atau lebih</td><td>Tidak ada</td></tr>
+              <tr><td>MANCOVA</td><td>2 atau lebih</td><td>Ada</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="doc-section" id="hasil">
+        <h2>Membaca Hasil</h2>
+        <p>Pada uji statistik, nilai-p yang lebih kecil dari taraf signifikansi (umumnya 0,05) menunjukkan bahwa faktor yang diuji berpengaruh nyata terhadap variabel dependen setelah pengaruh kovariat dikendalikan. Nilai-p yang lebih besar berarti bukti pengaruhnya belum cukup kuat.</p>
+        <div class="doc-note">Penjelasan dari wawasan AI membantu menafsirkan angka, tetapi bukan pengganti penilaian peneliti. Periksa kembali kesimpulan penting sebelum dipakai untuk mengambil keputusan.</div>
+      </section>
+
+      <section class="doc-section" id="kuesioner">
+        <h2>Analisis Kuesioner</h2>
+        <p>Kuesioner terdiri dari 9 langkah: identitas responden, lalu 8 aspek yang masing-masing berisi 3 pernyataan dengan skala 1 (sangat tidak setuju) sampai 5 (sangat setuju). Aspeknya: formula pakan, bibit unggul, kesehatan dan manajemen penyakit, produksi, pengetahuan nutrisi, wilayah peternakan, pemeliharaan, dan peluang usaha.</p>
+        <h3>Cara skor dihitung</h3>
+        <p>Skor tiap aspek adalah rata-rata dari 3 jawabannya, lalu dikelompokkan:</p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Skor rata-rata</th><th>Kategori</th></tr></thead>
+            <tbody>
+              <tr><td>4,20 sampai 5,00</td><td>Sangat baik</td></tr>
+              <tr><td>3,40 sampai 4,19</td><td>Baik</td></tr>
+              <tr><td>2,60 sampai 3,39</td><td>Cukup</td></tr>
+              <tr><td>1,80 sampai 2,59</td><td>Kurang</td></tr>
+              <tr><td>Di bawah 1,80</td><td>Sangat kurang</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="doc-note">Saat Anda menekan <strong>Lihat Hasil</strong>, jawaban dan identitas dikirim dan disimpan di server untuk keperluan penelitian; hanya peneliti dan administrator yang dapat melihatnya. Isi formulir akan terhapus jika Anda keluar dari halaman kuesioner atau memuat ulang halaman.</div>
+      </section>
+
+      <section class="doc-section" id="portal">
+        <h2>Portal Peneliti &amp; Dashboard</h2>
+        <p>Peneliti dan administrator masuk lewat <a href="Authentication.html" class="btn-link">Portal Peneliti</a> (tautan juga ada di bagian bawah setiap halaman).</p>
+        <ul>
+          <li><strong>Peneliti</strong> dapat mendaftar sendiri dan melihat riwayat analisis ragam miliknya.</li>
+          <li><strong>Administrator</strong> melihat ringkasan seluruh pengguna: jumlah analisis, hasil dan asumsi tiap analisis, respons kuesioner beserta skor per aspek dan per kecamatan, daftar pengguna, serta ekspor CSV.</li>
+        </ul>
+        <p>Admin mengelola akun di tab <strong>Pengguna</strong>: menambah pengguna, mengubah nama/email/peran, mengatur ulang kata sandi, dan menghapus akun. Di tab <strong>Analisis</strong> admin dapat menghapus riwayat analisis, dan di tab <strong>Kuesioner</strong> admin dapat mengubah identitas responden atau menghapus respons. Setelah analisis selesai, halaman <strong>Laporan</strong> menyusun ringkasan lengkap yang bisa dicetak atau disimpan sebagai PDF.</p>
+        <div class="doc-note">Akun administrator dibuat saat server pertama kali dijalankan. Atur <code>ADMIN_EMAIL</code> dan <code>ADMIN_PASSWORD</code> di environment untuk memakai akun sendiri; bila tidak diatur, kata sandi acak dicetak sekali di console server.</div>
+      </section>
+
+      <section class="doc-section" id="api">
+        <h2>API</h2>
+        <p>Frontend berkomunikasi dengan backend FastAPI melalui endpoint berikut (semuanya berawalan <code>/api</code>):</p>
+        <div class="doc-table-wrap">
+          <table class="doc-table">
+            <thead><tr><th>Endpoint</th><th>Fungsi</th></tr></thead>
+            <tbody>
+              <tr><td><code>GET /health</code></td><td>Memeriksa apakah layanan berjalan.</td></tr>
+              <tr><td><code>POST /upload</code></td><td>Mengunggah file CSV/XLSX dan menghasilkan profil data.</td></tr>
+              <tr><td><code>POST /clean</code></td><td>Membersihkan data kosong sesuai pilihan pengguna.</td></tr>
+              <tr><td><code>POST /descriptive</code></td><td>Menghitung statistika deskriptif untuk variabel yang dipilih.</td></tr>
+              <tr><td><code>GET /gallery</code></td><td>Daftar foto pada halaman Dokumentasi.</td></tr>
+              <tr><td><code>POST /analyze</code></td><td>Menjalankan uji asumsi dan analisis (ANOVA/ANCOVA/MANOVA/MANCOVA/Regresi Linier) dan mengembalikan hasilnya.</td></tr>
+              <tr><td><code>POST /auth/register</code>, <code>/auth/login</code></td><td>Membuat akun peneliti dan masuk; mengembalikan token.</td></tr>
+              <tr><td><code>GET /auth/me</code></td><td>Data pengguna yang sedang masuk.</td></tr>
+              <tr><td><code>POST /questionnaire</code></td><td>Menyimpan respons kuesioner dan menghitung skor di server.</td></tr>
+              <tr><td><code>GET /me/analyses</code></td><td>Riwayat analisis milik pengguna yang masuk.</td></tr>
+              <tr><td><code>GET /admin/*</code></td><td>Ringkasan, daftar analisis, kuesioner, pengguna, dan ekspor CSV (khusus admin).</td></tr>
+              <tr><td><code>POST/PATCH/DELETE /admin/users</code></td><td>Tambah, ubah, dan hapus pengguna (khusus admin).</td></tr>
+              <tr><td><code>DELETE /admin/analyses/{id}</code></td><td>Hapus riwayat analisis (khusus admin).</td></tr>
+              <tr><td><code>PATCH/DELETE /admin/questionnaires/{id}</code></td><td>Ubah identitas responden atau hapus respons (khusus admin).</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>Format request dan response lengkap ada di berkas <code>docs/API_CONTRACT_V2.md</code> pada proyek.</p>
+      </section>
+
+      <section class="doc-section" id="faq">
+        <h2>Tanya Jawab</h2>
+        <details class="faq-item"><summary>Apakah saya perlu menguasai statistika untuk memakai sistem ini?</summary><p>Tidak harus. Sistem memilih metode dan menjalankan perhitungannya, lalu menjelaskan hasilnya dengan bahasa sederhana. Memahami arti variabel pada data Anda tetap penting agar pengelompokan variabelnya tepat.</p></details>
+        <details class="faq-item"><summary>Ada asumsi yang tidak terpenuhi, apa yang harus saya lakukan?</summary><p>Analisis tetap bisa dilanjutkan, tetapi hasilnya perlu dibaca lebih hati-hati. Pada halaman Uji Asumsi tersedia saran untuk tiap asumsi dan panel <strong>Transformasi data</strong> (log, akar kuadrat, kuadrat, kebalikan, atau Box-Cox). Pilih transformasi untuk variabel dependen atau kovariat, lalu sistem menguji ulang. Periksa juga pencilan dan pertimbangkan menambah sampel.</p></details>
+        <details class="faq-item"><summary>Apa arti "H0 diterima" atau "H0 ditolak" pada uji asumsi?</summary><p>H0 pada uji asumsi berarti syaratnya terpenuhi (misalnya data berdistribusi normal). Bila nilai p sama dengan atau lebih besar dari 0,05, H0 diterima dan asumsi terpenuhi. Bila p lebih kecil dari 0,05, H0 ditolak dan asumsi tidak terpenuhi.</p></details>
+        <details class="faq-item"><summary>Kenapa tombol lanjut tidak bisa ditekan di tahap pilih variabel?</summary><p>Pastikan ada minimal 1 variabel dependen (numerik) dan 1 variabel independen (kategorik atau kode kelompok). Kovariat bersifat opsional.</p></details>
+        <details class="faq-item"><summary>File saya ditolak saat diunggah. Apa penyebabnya?</summary><p>Pastikan formatnya <code>.csv</code> atau <code>.xlsx</code> dan ukurannya tidak lebih dari 10 MB. Pastikan juga file tidak kosong dan ada baris data di bawah baris nama kolom. Bila memakai templat Excel, isi sheet &ldquo;Data&rdquo; (bukan sheet Petunjuk).</p></details>
+        <details class="faq-item"><summary>Apakah hasil kuesioner dan analisis saya tersimpan?</summary><p>Respons kuesioner disimpan di server saat Anda menekan Lihat Hasil, supaya dapat dipantau peneliti. Untuk analisis ragam, file Anda hanya diproses sementara di memori server dan tidak disimpan; yang tersimpan hanya ringkasan hasil. Hasil analisis terakhir juga disimpan di browser Anda agar bisa dilihat lagi. Gunakan tombol cetak di halaman hasil untuk menyimpan salinan PDF.</p></details>
+        <details class="faq-item"><summary>Ke mana saya bisa bertanya jika mengalami kendala?</summary><p>Silakan hubungi kami lewat halaman <a href="kontak.html" class="btn-link">Kontak</a>.</p></details>
+      </section>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="panduan.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>

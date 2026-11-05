@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dokumentasi — MANCOVA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dokumentasi.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html">Riset</a></li>
+      <li><a href="dokumentasi.html" class="active">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<main class="gal-wrap">
+  <header class="gal-head">
+    <h1>Dokumentasi</h1>
+    <span class="gal-count" id="galCount" aria-live="polite"></span>
+  </header>
+
+  <div class="gal-grid" id="galGrid" aria-label="Galeri foto dokumentasi"></div>
+  <p class="gal-error" id="galError" role="alert" hidden></p>
+</main>
+
+<section class="faq-wrap" id="faq" style="padding:0 24px 96px;">
+  <h2>Pertanyaan yang Sering Diajukan</h2>
+  <p>Jawaban singkat seputar penggunaan sistem. Butuh yang lebih rinci? Lihat <a href="panduan.html" class="btn-link" style="text-decoration:underline;">Panduan Penggunaan</a> atau <a href="kontak.html" class="btn-link" style="text-decoration:underline;">hubungi kami</a>.</p>
+  <div class="faq-list">
+    <details class="faq-item"><summary>Apa itu sistem ini dan untuk siapa?</summary><p>Sistem informasi untuk menganalisis data defek kulit sapi: peternak dapat melihat ringkasan dan risiko, sedangkan peneliti dan mahasiswa dapat menjalankan analisis statistik (ANOVA, ANCOVA, MANOVA, MANCOVA, Regresi Linier, dan statistika deskriptif) tanpa menulis kode.</p></details>
+    <details class="faq-item"><summary>File seperti apa yang bisa diunggah?</summary><p>File <code>.csv</code> atau <code>.xlsx</code> maksimal 10 MB. Nama kolom boleh berada di baris mana pun: judul atau keterangan di atas tabel dilewati otomatis, dan pada file Excel dengan beberapa sheet, sheet berisi data yang dibaca (sheet Petunjuk diabaikan). Setiap baris di bawah nama kolom adalah satu pengamatan (mis. satu ekor sapi). Koma desimal ala Excel Indonesia dan pemisah titik koma juga dibaca otomatis. Templat Excel kosong, contoh data terisi, dan contoh CSV bisa diunduh di halaman unggah.</p></details>
+    <details class="faq-item"><summary>Apa yang harus saya pilih sebelum analisis dijalankan?</summary><p>Pilih dulu uji yang ingin dipakai: ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier. Setelah itu pilih variabel sesuai syarat uji: ANOVA dan ANCOVA memakai 1 variabel dependen, MANOVA dan MANCOVA memakai minimal 2. ANCOVA dan MANCOVA wajib punya kovariat (variabel pengganggu seperti suhu), sedangkan ANOVA dan MANOVA tidak memakainya. Regresi Linier tanpa faktor memakai kovariat sebagai prediktor numerik.</p></details>
+    <details class="faq-item"><summary>Apakah file data saya disimpan?</summary><p>Tidak. File hanya diproses sementara di memori server (maksimal 1 jam). Yang tersimpan hanya ringkasan hasil analisis, agar dapat dilihat kembali dan dipantau administrator.</p></details>
+    <details class="faq-item"><summary>Apa arti "H0 diterima" dan "H0 ditolak" pada uji asumsi?</summary><p>Pada uji asumsi, H0 berarti syaratnya terpenuhi (mis. data berdistribusi normal). Bila nilai p sama dengan atau lebih besar dari 0,05, H0 diterima dan asumsi terpenuhi. Bila p lebih kecil dari 0,05, H0 ditolak dan asumsi tidak terpenuhi.</p></details>
+    <details class="faq-item"><summary>Ada asumsi yang tidak terpenuhi. Apa yang harus saya lakukan?</summary><p>Analisis tetap bisa dilanjutkan, tetapi hasilnya perlu dibaca lebih hati-hati. Di halaman Uji Asumsi tersedia saran tiap asumsi dan panel transformasi data (log, akar kuadrat, kuadrat, kebalikan, Box-Cox) lalu sistem menguji ulang. Periksa juga pencilan dan pertimbangkan menambah sampel.</p></details>
+    <details class="faq-item"><summary>Apa bedanya Statistika Deskriptif dengan Analisis Ragam?</summary><p>Statistika deskriptif hanya merangkum data (rata-rata, sebaran, frekuensi, korelasi). Analisis ragam menguji apakah perbedaan antar kelompok cukup besar untuk dianggap nyata, bukan kebetulan.</p></details>
+    <details class="faq-item"><summary>Bagaimana cara membaca hasil yang diberikan?</summary><p>Halaman hasil memuat penjelasan dalam bahasa sehari-hari untuk tiap faktor dan kovariat, lengkap dengan grafik pendukung, arti praktis, dan langkah selanjutnya. Tabel uji statistik lengkap tetap tersedia di bawahnya.</p></details>
+    <details class="faq-item"><summary>Apakah jawaban kuesioner peternak disimpan?</summary><p>Ya. Saat Anda menekan Lihat Hasil, jawaban dan identitas disimpan untuk keperluan penelitian dan hanya dapat dilihat peneliti dan administrator. Isi formulir terhapus bila Anda keluar dari halaman.</p></details>
+    <details class="faq-item"><summary>Bagaimana cara masuk atau membuat akun peneliti?</summary><p>Buka <a href="Authentication.html">Portal Peneliti</a> lalu pilih Daftar. Peneliti dapat melihat riwayat analisisnya; administrator dapat melihat seluruh aktivitas dan mengelola akun.</p></details>
+    <details class="faq-item"><summary>Saya lupa kata sandi, bagaimana?</summary><p>Hubungi administrator untuk mengatur ulang kata sandi lewat dashboard, atau sampaikan lewat halaman <a href="kontak.html">Kontak</a>.</p></details>
+    <details class="faq-item"><summary>Hasil analisis bisa dicetak atau disimpan?</summary><p>Bisa. Buka Laporan Lengkap dari halaman hasil, lalu pilih Cetak / Simpan PDF atau unduh tabel dalam CSV. Hasil analisis terakhir juga tersimpan di browser untuk dilihat lagi.</p></details>
+  </div>
+</section>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true" aria-label="Penampil foto">
+  <button type="button" class="lb-btn lb-close" id="lbClose" aria-label="Tutup">✕</button>
+  <button type="button" class="lb-btn lb-prev" id="lbPrev" aria-label="Foto sebelumnya">‹</button>
+  <figure class="lb-fig">
+    <img id="lbImg" alt="">
+    <figcaption id="lbCap"></figcaption>
+  </figure>
+  <button type="button" class="lb-btn lb-next" id="lbNext" aria-label="Foto berikutnya">›</button>
+  <div class="lb-count" id="lbCount"></div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/script.js"></script>
+<script src="js/dokumentasi.js"></script>
+</body>
+</html>

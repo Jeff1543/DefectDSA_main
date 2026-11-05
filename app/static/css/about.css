@@ -1,0 +1,175 @@
+/* ==========================================================================
+   About page — layout khusus
+   ========================================================================== */
+
+.about-hero {
+  padding: 56px 0 24px;
+}
+
+.about-hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.about-hero h1 {
+  font-size: 2.6rem;
+  margin: 18px 0 18px;
+}
+
+.about-hero h1 .accent { color: var(--slate-900); }
+
+.about-hero p {
+  color: var(--slate-500);
+  margin-bottom: 26px;
+  max-width: 440px;
+}
+
+.about-hero-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.about-hero-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* mission split */
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 96px 0;
+  position: relative;
+}
+
+.mission-media {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.mission-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.floating-tag {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-card);
+  max-width: 240px;
+}
+
+.floating-tag .icon-circle { flex-shrink: 0; width: 38px; height: 38px; }
+.floating-tag strong { display: block; font-size: 0.88rem; color: var(--slate-900); }
+.floating-tag span { font-size: 0.78rem; color: var(--slate-500); }
+
+.mission-copy {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+
+.mission-copy h2 { color: var(--slate-900); font-size: 1.7rem; margin-bottom: 16px; }
+.mission-copy p { margin-bottom: 14px; color: var(--slate-600); font-size: 0.95rem; }
+
+/* science split (reversed) */
+.science-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+  margin: 96px 0;
+}
+
+.science-copy {
+  background: var(--surface-card);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+}
+
+.science-copy h2 { color: #2563eb; font-size: 1.5rem; margin-bottom: 16px; }
+.science-copy p { margin-bottom: 14px; color: var(--slate-600); font-size: 0.93rem; }
+
+.science-stats {
+  display: flex;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+.science-stats strong { display: block; font-size: 1.7rem; color: #2563eb; }
+.science-stats span { font-size: 0.8rem; color: var(--slate-500); }
+
+.science-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, #dbeafe, #e0f2ea);
+}
+
+.science-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* who is this for */
+.who-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.who-head h2 { font-size: 1.9rem; display: inline-block; padding-bottom: 14px; border-bottom: 3px solid var(--slate-900); }
+
+.who-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.who-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  color: var(--white);
+}
+
+.who-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.who-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11,61,33,0) 40%, rgba(11,61,33,0.88) 100%);
+}
+
+.who-card-copy {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 22px;
+  z-index: 2;
+}
+
+.who-card-copy h3 { color: var(--white); font-size: 1.1rem; margin-bottom: 6px; }
+.who-card-copy p { font-size: 0.85rem; color: rgba(255,255,255,0.85); }
+
+@media (max-width: 900px) {
+  .about-hero-grid, .mission-grid, .science-grid {
+    grid-template-columns: 1fr;
+  }
+  .who-grid { grid-template-columns: 1fr; }
+  .science-grid .science-media { order: -1; }
+}

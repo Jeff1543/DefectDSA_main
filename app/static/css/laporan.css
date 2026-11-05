@@ -1,0 +1,210 @@
+/* ==========================================================================
+   Laporan page — layout khusus
+   ========================================================================== */
+
+.laporan-wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 24px 0;
+}
+
+.laporan-head {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.laporan-head h1 {
+  font-size: 1.9rem;
+  margin-top: 14px;
+}
+
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fde2e2;
+  color: #b42318;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 7px 16px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 18px;
+}
+
+.productivity-index {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.productivity-label {
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 10px;
+}
+
+/* --- Map card --- */
+.laporan-map-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+.laporan-map {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  background: var(--surface-card);
+}
+
+.laporan-map img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.map-marker {
+  position: absolute;
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  box-shadow: var(--shadow-card);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.map-marker .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.map-marker strong { display: block; font-size: 0.82rem; }
+.map-marker span.val { color: var(--slate-500); font-size: 0.76rem; }
+
+/* --- Radar chart --- */
+.radar-caption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+  font-size: 0.82rem;
+  color: var(--slate-500);
+}
+
+.radar-caption .legend-dot { background: var(--slate-900); }
+
+/* --- Env factor bars --- */
+.env-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.env-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+/* --- Loss estimate --- */
+.loss-card {
+  background: var(--slate-800);
+  color: var(--white);
+  border-radius: var(--radius-lg);
+  padding: 30px 32px;
+  margin: 24px 0;
+}
+
+.loss-card .eyebrow {
+  color: var(--surface-accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  margin-bottom: 10px;
+}
+
+.loss-card .amount {
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+
+.loss-card .amount small {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+.loss-card p {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.9rem;
+  max-width: 480px;
+}
+
+/* --- Recommendation list --- */
+.rec-title {
+  text-align: center;
+  font-weight: 700;
+  color: var(--slate-900);
+  margin-bottom: 18px;
+}
+
+.rec-item {
+  display: flex;
+  gap: 16px;
+  padding: 18px 4px;
+  border-bottom: 1px solid var(--surface-card);
+}
+
+.rec-item .icon-circle { flex-shrink: 0; }
+.rec-item h4 { font-size: 0.98rem; margin-bottom: 4px; }
+.rec-item p { font-size: 0.88rem; color: var(--slate-500); }
+
+.laporan-footer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 28px 0 64px;
+}
+
+@media (max-width: 640px) {
+  .env-grid { grid-template-columns: 1fr; }
+  .map-marker { position: static; margin-bottom: 8px; max-width: none; }
+}
+
+
+/* ---------- Laporan dinamis ---------- */
+.rep-sub { color: var(--slate-500); font-size: 0.95rem; margin-top: 6px; }
+.rep-sec { margin-bottom: 24px; }
+.rep-sec h3 { font-size: 1.1rem; margin-bottom: 4px; }
+.rep-sec .rep-hint { font-size: 0.85rem; color: var(--slate-500); margin-bottom: 14px; }
+.rep-summary { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; }
+.rep-big { font-size: 3rem; font-weight: 800; letter-spacing: -0.03em; color: var(--slate-900); line-height: 1; }
+.rep-big small { display: block; font-size: 0.85rem; font-weight: 500; color: var(--slate-500); letter-spacing: 0; margin-top: 6px; }
+.rep-flags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+.rep-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.rep-table th { text-align: left; font-size: 0.78rem; font-weight: 600; color: var(--slate-500); padding: 0 10px 10px; border-bottom: 1px solid var(--gray-200); white-space: nowrap; }
+.rep-table td { padding: 10px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+.rep-table tr:last-child td { border-bottom: none; }
+.rep-table .muted { color: var(--slate-500); font-size: 0.82rem; }
+.rep-two { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.rep-meta { font-size: 0.82rem; color: var(--slate-500); text-align: center; margin: -8px 0 24px; }
+@media (max-width: 800px) { .rep-summary, .rep-two { grid-template-columns: 1fr; } }
+@media print {
+  .navbar-wrap, .site-footer, .laporan-footer-actions { display: none !important; }
+  .card { box-shadow: none !important; break-inside: avoid; }
+  body { background: #fff; }
+}
+
+.rep-two > * { min-width: 0; }
+@media (max-width: 800px) { .rep-two { grid-template-columns: 1fr !important; } }

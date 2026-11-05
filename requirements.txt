@@ -1,0 +1,14 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pandas
+openpyxl
+numpy
+scipy
+statsmodels
+pydantic
+httpx
+
+psycopg[binary]
+psycopg_pool
+python-dotenv

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Peneliti — MANCOVA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/analysis.css">
+<link rel="stylesheet" href="css/dashboard.css?v=7">
+</head>
+<body>
+
+<header class="dash-top">
+  <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+  <nav class="dash-links" aria-label="Navigasi dashboard">
+    <a href="index.html">Beranda</a>
+    <a href="research-choose.html">Analisis Baru</a>
+  </nav>
+  <div class="dash-user">
+    <span id="userName" class="dash-user-name"></span>
+    <span id="userRole" class="role-pill"></span>
+    <button type="button" class="btn btn-secondary btn-sm" id="pwBtn">Ubah Sandi</button>
+    <button type="button" class="btn btn-secondary btn-sm" id="logoutBtn">Keluar</button>
+  </div>
+</header>
+
+<main class="dash-wrap" id="dashMain" hidden>
+  <div class="dash-head">
+    <h1 id="dashTitle">Dashboard</h1>
+    <p id="dashSub"></p>
+  </div>
+
+  <div class="notice notice-error" id="dashError" role="alert" hidden style="margin-bottom:16px;"></div>
+
+  <div class="dash-tabs" role="tablist" id="dashTabs"></div>
+
+  <section id="panel" class="dash-panel" aria-live="polite"></section>
+</main>
+
+<div class="loading-card" id="dashLoading" role="status" style="max-width:480px;margin:80px auto;">
+  <div class="spinner"></div><div>Memuat dashboard…</div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h2 id="modalTitle"></h2>
+      <button type="button" class="modal-close" id="modalClose" aria-label="Tutup">✕</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/dashboard.js?v=7"></script>
+</body>
+</html>

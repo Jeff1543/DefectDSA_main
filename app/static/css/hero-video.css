@@ -1,0 +1,137 @@
+/* Hero video layar penuh — file mandiri, dimuat setelah home.css */
+html { scroll-padding-top: 88px; }
+
+.hero-full {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  min-height: 600px;
+  border-radius: 0;
+  overflow: hidden;
+  background: #101410;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-full__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Gradasi: gelap di kiri-bawah (tempat teks) supaya tidak bentrok dengan isi video */
+.hero-full__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.38) 38%, rgba(0, 0, 0, 0) 68%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 45%);
+}
+
+/* ---------- Navbar: menempel di atas layar saat scroll ---------- */
+.hero-full .navbar-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 24px 0;
+}
+
+.hero-full .navbar {
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  box-shadow: none;
+  transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hero-full .nav-logo,
+.hero-full .nav-links a,
+.hero-full .nav-cta {
+  transition: color 0.25s ease, background 0.25s ease;
+}
+
+.hero-full .nav-logo { color: var(--white); }
+.hero-full .nav-links a { color: rgba(255, 255, 255, 0.88); }
+.hero-full .nav-links a:hover { background: rgba(255, 255, 255, 0.18); color: var(--white); }
+.hero-full .nav-links a.active { background: var(--white); color: var(--slate-900); }
+.hero-full .nav-cta.btn-primary { background: var(--white); color: var(--slate-900); }
+.hero-full .nav-cta.btn-primary:hover { background: var(--surface-icon); }
+
+/* Setelah melewati hero → navbar putih solid agar terbaca di halaman terang */
+.hero-full .navbar-wrap.is-scrolled .navbar {
+  background: rgba(255, 255, 255, 0.94);
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-nav);
+}
+.hero-full .navbar-wrap.is-scrolled .nav-logo { color: var(--slate-900); }
+.hero-full .navbar-wrap.is-scrolled .nav-links a { color: var(--slate-600); }
+.hero-full .navbar-wrap.is-scrolled .nav-links a:hover { background: var(--surface-card); color: var(--slate-900); }
+.hero-full .navbar-wrap.is-scrolled .nav-links a.active { background: var(--slate-900); color: var(--white); }
+.hero-full .navbar-wrap.is-scrolled .nav-cta.btn-primary { background: var(--slate-900); color: var(--white); }
+.hero-full .navbar-wrap.is-scrolled .nav-cta.btn-primary:hover { background: var(--slate-700); }
+
+/* ---------- Teks hero: kiri-bawah ---------- */
+.hero-full .hero {
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin-top: auto;
+  padding: 0 clamp(24px, 6vw, 88px) clamp(40px, 8vh, 88px);
+}
+
+.hero-full .hero-copy { max-width: 680px; }
+
+.hero-full .hero-copy h1 {
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 18px;
+  color: var(--white);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+}
+
+.hero-full .hero-copy p {
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.88);
+  max-width: 520px;
+  margin: 0 0 28px;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+.hero-full .hero-actions { justify-content: flex-start; }
+.hero-full .btn-primary { background: var(--white); color: var(--slate-900); }
+.hero-full .btn-primary:hover { background: var(--surface-icon); }
+.hero-full .btn-secondary {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--white);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+.hero-full .btn-secondary:hover { background: rgba(255, 255, 255, 0.28); }
+
+@media (max-width: 900px) {
+  .hero-full .navbar-wrap { padding: 12px 16px 0; }
+  .hero-full__shade {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%),
+      linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.35) 55%, rgba(0, 0, 0, 0) 80%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-full__video { display: none; }
+  .hero-full { background: #101410 url("../img/hero-poster.jpg") center / cover; }
+}

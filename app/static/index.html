@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MANCOVA — Deteksi Risiko Defek Kulit Sapi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css?v=6" />
+    <link rel="stylesheet" href="css/home.css?v=6" />
+    <link rel="stylesheet" href="css/hero-video.css?v=6" />
+  </head>
+  <body>
+    <!-- ========== HERO (video latar layar penuh) ========== -->
+    <header class="hero-full">
+      <video
+        class="hero-full__video"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        poster="img/hero-poster.jpg"
+        aria-hidden="true"
+      >
+        <source src="video/hero.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-full__shade"></div>
+
+      <!-- NAVBAR (melayang di atas video) -->
+      <div class="navbar-wrap">
+        <nav class="navbar">
+          <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+          <ul class="nav-links">
+            <li><a href="index.html" class="active">Beranda</a></li>
+            <li><a href="features.html">Fitur</a></li>
+            <li><a href="research-choose.html">Riset</a></li>
+            <li><a href="dokumentasi.html">Dokumentasi</a></li>
+            <li><a href="about.html">Tentang Kami</a></li>
+            <li><a href="kontak.html">Kontak</a></li>
+          </ul>
+          <a href="research-choose.html" class="btn btn-primary nav-cta"
+            >Start Analysis</a
+          >
+        </nav>
+      </div>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <h1>
+            Deteksi Risiko Defek Kulit Sapi Sebelum Berdampak pada Produktivitas
+          </h1>
+          <p>
+            DefectStat menggunakan analisis statistik multivariat canggih dan AI
+            untuk menghitung dampak variabel kovariat pada skor defek kulit (Y),
+            memprediksi risiko, dan memberikan rekomendasi intervensi yang
+            cerdas.
+          </p>
+          <div class="hero-actions">
+            <a href="research-choose.html" class="btn btn-primary"
+              >Ajukan Demo</a
+            >
+            <a href="#methodology" class="btn btn-secondary"
+              >Lihat Metodologi</a
+            >
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <!-- ========== DESIGNED FOR FARMERS ========== -->
+    <section class="section bg-gray">
+      <div class="container">
+        <div class="section-head">
+          <h2>
+            Dirancang untuk Peternak. Didukung oleh Sains. Disederhanakan oleh
+            AI.
+          </h2>
+          <p>
+            Alat tingkat laboratorium yang dirancang untuk kumpulan data
+            pertanian yang kompleks.
+          </p>
+        </div>
+
+        <div class="value-grid">
+          <div class="value-card">
+            <div class="icon-circle">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="12" cy="12" r="0.7" fill="currentColor" />
+              </svg>
+            </div>
+            <h3>Deteksi Faktor Risiko</h3>
+            <p>
+              Identifikasi indikator awal defek kulit menggunakan analisis
+              kovariat multi-spektral di seluruh populasi ternak.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <div class="icon-circle">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M4 12a8 8 0 0 1 14-5.3M20 12a8 8 0 0 1-14 5.3" />
+                <path d="M18 3v4h-4M6 21v-4h4" />
+              </svg>
+            </div>
+            <h3>Analisis Statistik Otomatis</h3>
+            <p>
+              Rampingkan analisis statistik multivariat dengan pemrosesan
+              pipeline otomatis dan deteksi pencilan.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <div class="icon-circle blue">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="6" cy="6" r="2.4" />
+                <circle cx="18" cy="6" r="2.4" />
+                <circle cx="12" cy="18" r="2.4" />
+                <path d="M8 7l6 9M16 7l-6 9" />
+              </svg>
+            </div>
+            <h3>Visualisasi Interaktif</h3>
+            <p>
+              Jelajahi hubungan yang kompleks melalui model statistik dinamis
+              beresolusi tinggi dan matriks sebar.
+            </p>
+          </div>
+
+          <div class="value-card">
+            <div class="icon-circle">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.5.4.6 1 .6 1.6v.6h6v-.6c0-.6.1-1.2.6-1.6A6 6 0 0 0 12 3z"
+                />
+              </svg>
+            </div>
+            <h3>Rekomendasi Cerdas</h3>
+            <p>
+              Terima strategi intervensi yang dapat ditindaklanjuti yang
+              diprioritaskan berdasarkan prediksi dampak pada pengurangan skor
+              defek.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SCIENTIFIC METHODOLOGY ========== -->
+    <section class="section" id="methodology">
+      <div class="container method-section">
+        <div class="method-media">
+          <img
+            class="tall"
+            src="https://picsum.photos/seed/mancova-hide/500/700"
+            alt="Tekstur kulit sapi"
+          />
+          <div class="stat-block light">
+            <strong>0.014</strong>
+            <span>Regresi Parsial</span>
+          </div>
+          <div class="stat-block">
+            <strong>12.4</strong>
+            <span>Skor Kalkulasi Statistik</span>
+          </div>
+        </div>
+
+        <div>
+          <h2 style="font-size: 2rem">Metodologi Ilmiah</h2>
+          <ul class="method-list">
+            <li>
+              <div class="icon-circle">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 3a9 9 0 1 0 9 9" />
+                  <path d="M12 3v9l6 3" />
+                </svg>
+              </div>
+              <div>
+                <h4>Variabel Lingkungan</h4>
+                <p>
+                  Melacak kelembapan, suhu, dan pergeseran musiman yang memicu
+                  ledakan hama.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="icon-circle">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" />
+                  <circle cx="12" cy="12" r="3" />
+                </svg>
+              </div>
+              <div>
+                <h4>Kepadatan Populasi Lalat</h4>
+                <p>
+                  Pemetaan statistik populasi lalat relatif terhadap kelompok
+                  sapi yang terlokalisasi.
+                </p>
+              </div>
+            </li>
+            <li>
+              <div class="icon-circle">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path d="M12 9v4M12 16h.01" />
+                  <circle cx="12" cy="12" r="9" />
+                </svg>
+              </div>
+              <div>
+                <h4>Penilaian Defek Kulit</h4>
+                <p>
+                  Klasifikasi otomatis tingkat keparahan defek berdasarkan data
+                  fotografi.
+                </p>
+              </div>
+            </li>
+          </ul>
+          <a href="#" class="btn-link" style="margin-top: 24px"
+            >Jelajahi Metodologi Mendalam <span class="arrow">→</span></a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CTA ========== -->
+    <section class="container" style="padding-top: 24px">
+      <div class="cta-band">
+        <h2>Siap Menganalisis Data Sapi Anda?</h2>
+        <p>
+          Mulai kumpulkan insight dalam hitungan menit dengan alur onboarding
+          cerdas kami.
+        </p>
+        <div class="hero-actions">
+          <a href="research-choose.html" class="btn btn-ghost-on-dark"
+            >Mulai Kuesioner Digital</a
+          >
+          <a
+            href="research-results.html"
+            class="btn"
+            style="
+              background: transparent;
+              border: 1px solid rgba(255, 255, 255, 0.5);
+              color: #fff;
+            "
+            >Lihat Contoh Analisis</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <span class="nav-logo">DefectDSA</span>
+            <p>
+              Platform analisis statistik multivariat tercanggih untuk deteksi
+              dini kesehatan kulit ternak. Menggunakan metode DefectDSA untuk
+              akurasi riset yang tak tertandingi.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h4>Navigasi</h4>
+            <ul>
+              <li><a href="index.html">Beranda</a></li>
+              <li><a href="features.html">Fitur</a></li>
+              <li><a href="research-choose.html">Riset</a></li>
+              <li><a href="dokumentasi.html">Dokumentasi</a></li>
+              <li><a href="kontak.html">Kontak</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Informasi</h4>
+            <ul>
+              <li><a href="dokumentasi.html#faq">FAQ</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms &amp; Conditions</a></li>
+              <li><a href="kontak.html">Help Center</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Kontak</h4>
+            <ul>
+              <li>Universitas Brawijaya, Malang, Indonesia</li>
+              <li>research@mancova.ub.ac.id</li>
+              <li>+62 341 551611</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom" style="position: relative">
+          © 2026 Universitas Brawijaya. All rights reserved.
+          <a href="Authentication.html" class="portal-peneliti-pill">
+            <span
+              class="icon-circle"
+              style="
+                width: 30px;
+                height: 30px;
+                background: rgba(255, 255, 255, 0.12);
+                color: var(--surface-accent);
+              "
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M15 3h6v6M10 14 21 3"
+                />
+              </svg>
+            </span>
+            <span class="portal-peneliti-text">
+              <strong>INTERNAL ACCESS</strong>
+              <span>Portal Peneliti</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Navbar: transparan di atas video, berubah putih setelah hero terlewati
+      (function () {
+        var wrap = document.querySelector(".hero-full .navbar-wrap");
+        var hero = document.querySelector(".hero-full");
+        if (!wrap || !hero) return;
+        function update() {
+          wrap.classList.toggle("is-scrolled", window.scrollY > hero.offsetHeight - 90);
+        }
+        window.addEventListener("scroll", update, { passive: true });
+        window.addEventListener("resize", update);
+        update();
+      })();
+    </script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

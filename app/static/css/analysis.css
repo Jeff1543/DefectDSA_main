@@ -1,0 +1,301 @@
+/* ==========================================================================
+   Alur Analisis Ragam yang tersambung ke API — komponen tambahan.
+   Memakai token warna dari style.css.
+   ========================================================================== */
+
+.notice {
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 0.92rem;
+  border: 1px solid var(--gray-200);
+  background: var(--surface-card);
+  color: var(--slate-700);
+}
+.notice[hidden] { display: none; }
+.notice-error { background: #f6e7e4; border-color: #e3c3bd; color: #8a3329; }
+.notice-warn { background: #fbf1e3; border-color: #ecd4ae; color: #7a4f10; }
+.notice a { text-decoration: underline; }
+
+.prev-result {
+  max-width: 980px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.prev-result .meta { font-size: 0.9rem; color: var(--slate-600); }
+.prev-result .meta strong { color: var(--slate-900); }
+.prev-result .acts { display: flex; gap: 12px; align-items: center; }
+
+.spinner {
+  width: 22px; height: 22px; border-radius: 50%;
+  border: 3px solid var(--surface-icon); border-top-color: var(--slate-900);
+  animation: spin 0.8s linear infinite; flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .spinner { animation-duration: 2.4s; } }
+
+.loading-card {
+  display: flex; align-items: center; gap: 16px; justify-content: center;
+  background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg);
+  padding: 40px 24px; margin-bottom: 24px;
+}
+
+/* ---------- Validasi data ---------- */
+.clean-panel {
+  background: var(--surface-page); border: 1px solid var(--gray-200); border-radius: var(--radius-md);
+  padding: 20px 22px; margin: 0 0 24px; text-align: left;
+}
+.clean-panel h4 { font-size: 1rem; margin-bottom: 4px; }
+.clean-panel > p { font-size: 0.88rem; color: var(--slate-500); margin-bottom: 14px; }
+.clean-opt {
+  display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; margin-bottom: 8px;
+  border: 1px solid var(--gray-200); border-radius: var(--radius-md); background: var(--white); cursor: pointer;
+}
+.clean-opt:has(input:checked) { border-color: var(--slate-900); }
+.clean-opt input { margin-top: 4px; accent-color: var(--slate-900); }
+.clean-opt strong { display: block; font-size: 0.93rem; }
+.clean-opt span { font-size: 0.84rem; color: var(--slate-500); }
+.clean-sub { display: flex; gap: 8px; align-items: center; margin-top: 8px; font-size: 0.85rem; }
+.clean-sub select { font: inherit; padding: 6px 10px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: var(--white); }
+
+.col-table-wrap { margin: 0 0 24px; }
+.col-table-wrap summary { cursor: pointer; font-weight: 600; font-size: 0.92rem; padding: 6px 0; }
+.type-tag {
+  display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 2px 8px; border-radius: var(--radius-pill);
+  background: var(--surface-card); color: var(--slate-600); border: 1px solid var(--gray-200); white-space: nowrap;
+}
+
+/* ---------- Pilih variabel ---------- */
+.chip .chip-type { font-size: 0.68rem; font-weight: 600; opacity: 0.7; margin-left: 6px; }
+.chip.selected { outline: 2px solid var(--slate-900); outline-offset: 2px; }
+.dropzone.invalid { border-color: #b4483c; }
+#varHint.warn { color: #8a3329 !important; }
+.method-preview {
+  display: inline-flex; gap: 8px; align-items: center; margin-top: 12px;
+  padding: 6px 14px; border-radius: var(--radius-pill); background: var(--surface-card);
+  border: 1px solid var(--gray-200); font-size: 0.85rem; color: var(--slate-700);
+}
+.method-preview strong { color: var(--slate-900); }
+
+/* ---------- Identifikasi metode ---------- */
+.decision-tree-leaf.dim { opacity: 0.45; }
+.method-summary-item .value small { display: block; font-weight: 400; font-size: 0.8rem; color: var(--slate-500); margin-top: 2px; }
+
+/* ---------- Uji asumsi ---------- */
+.as-layout { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; margin-bottom: 24px; }
+.as-list { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 28px; }
+.as-list > h3 { font-size: 1.15rem; margin-bottom: 16px; }
+.as-card { border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 18px; margin-bottom: 12px; background: var(--surface-page); }
+.as-card:last-child { margin-bottom: 0; }
+.as-card.ok { border-left: 4px solid var(--slate-900); }
+.as-card.fail { background: #f9ecea; border-color: #e3c3bd; border-left: 4px solid #b4483c; }
+.as-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 6px; }
+.as-head strong { font-size: 1rem; color: var(--slate-900); }
+.as-card.fail .as-head strong { color: #8a3329; }
+.as-badge { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); white-space: nowrap; }
+.as-badge.ok { background: var(--slate-900); color: var(--white); }
+.as-badge.fail { background: #8a3329; color: var(--white); }
+.as-badge.info, .as-badge.na { background: var(--surface-icon); color: var(--slate-700); }
+.as-meaning { font-size: 0.86rem; color: var(--slate-500); margin-bottom: 6px; }
+.as-explain { font-size: 0.92rem; color: var(--slate-800, var(--slate-700)); margin-bottom: 10px; }
+.as-stats { display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 0.82rem; color: var(--slate-600); border-top: 1px dashed var(--gray-200); padding-top: 10px; }
+.as-stats b { color: var(--slate-900); font-weight: 600; }
+.as-side { display: grid; gap: 16px; position: sticky; top: 96px; }
+.as-sum { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px; }
+.as-sum.warn { background: #f9ecea; border-color: #e3c3bd; }
+.as-sum h4 { font-size: 1rem; margin-bottom: 4px; }
+.as-sum .big { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; color: var(--slate-900); }
+.as-sum.warn h4, .as-sum.warn .big { color: #8a3329; }
+.as-sum p { font-size: 0.88rem; color: var(--slate-600); }
+.as-check { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
+.as-check li { display: flex; gap: 10px; font-size: 0.88rem; align-items: flex-start; color: var(--slate-700); }
+.as-check li svg { width: 16px; height: 16px; flex-shrink: 0; margin-top: 3px; color: var(--slate-900); }
+.as-check.bad li svg { color: #8a3329; }
+.as-check small { display: block; color: var(--slate-500); font-size: 0.8rem; }
+.as-sub { font-size: 0.78rem; font-weight: 700; color: var(--slate-500); margin: 16px 0 0; }
+
+/* ---------- Hasil ---------- */
+.res-effect { margin-bottom: 22px; }
+.res-effect-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.res-effect-head h4 { font-size: 1rem; }
+.res-note { font-size: 0.82rem; color: var(--slate-500); margin-top: 6px; }
+.pill-sig, .pill-ns { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); }
+.pill-sig { background: var(--slate-900); color: var(--white); }
+.pill-ns { background: var(--surface-icon); color: var(--slate-600); }
+.risk-row { display: grid; grid-template-columns: 90px 1fr auto; gap: 12px; align-items: center; padding: 8px 0; font-size: 0.9rem; }
+.risk-row .bar { height: 10px; background: var(--surface-icon); border-radius: var(--radius-pill); overflow: hidden; }
+.risk-row .bar span { display: block; height: 100%; border-radius: var(--radius-pill); }
+.risk-row .lv { font-size: 0.75rem; font-weight: 700; }
+.lv-high { background: #b42318; } .lv-medium { background: #f97316; } .lv-low { background: var(--slate-700); } .lv-not_evaluated { background: var(--slate-400); }
+.vars-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.vars-summary dt { font-size: 0.78rem; color: var(--slate-500); font-weight: 600; }
+.vars-summary dd { margin: 2px 0 0; font-weight: 600; color: var(--slate-900); word-break: break-word; }
+.insight-source { font-size: 0.78rem; color: var(--slate-500); margin-top: 14px; }
+
+@media (max-width: 900px) {
+  .as-layout { grid-template-columns: 1fr; }
+  .as-side { position: static; }
+}
+@media print {
+  .navbar-wrap, .site-footer, .result-actions, #researchStepper { display: none !important; }
+}
+
+/* Atribut hidden harus selalu menang atas display: flex/grid komponen */
+[hidden] { display: none !important; }
+
+/* ======================= Grafik SVG ======================= */
+.ch { width: 100%; height: auto; display: block; }
+.ch-grid { stroke: var(--gray-200); stroke-width: 1; }
+.ch-axis { stroke: var(--slate-400); stroke-width: 1; }
+.ch-whisker { stroke: var(--slate-600); stroke-width: 1.5; }
+.ch-tx { fill: var(--slate-600); font-size: 10.5px; font-family: inherit; }
+.ch-tx2 { fill: var(--slate-500); font-size: 10px; font-family: inherit; }
+.ch-bar { fill: var(--slate-700); fill-opacity: 0.85; }
+.ch-bar:hover { fill-opacity: 1; }
+.ch-legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.78rem; color: var(--slate-600); margin-top: 6px; }
+.ch-legend span { display: inline-flex; align-items: center; gap: 6px; }
+.ch-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+.ch-cap { font-size: 0.8rem; color: var(--slate-500); margin: 6px 0 0; }
+.ch-box { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 14px 16px; }
+.ch-box h5 { font-size: 0.88rem; margin: 0 0 8px; color: var(--slate-900); }
+.ch-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-top: 12px; }
+
+/* ======================= Wawasan & interpretasi ======================= */
+.ins-summary { background: var(--surface-card); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 18px; font-size: 1rem; }
+.ins-finds { display: grid; gap: 16px; margin-bottom: 18px; }
+.ins-find { border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 18px 20px; background: var(--white); }
+.ins-find.sig { border-left: 4px solid var(--slate-900); }
+.ins-find header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap; }
+.ins-find header h4 { font-size: 1.02rem; flex: 1; min-width: 200px; }
+.ins-ico { width: 24px; height: 24px; border-radius: 50%; background: var(--slate-900); color: #fff; font-size: 0.8rem; display: inline-flex; align-items: center; justify-content: center; }
+.ins-find:not(.sig) .ins-ico { background: var(--surface-icon); color: var(--slate-600); }
+.ins-find > p { line-height: 1.7; color: var(--slate-700); }
+.ins-block { margin: 16px 0; }
+.ins-block h4 { font-size: 0.98rem; margin-bottom: 6px; }
+.ins-block ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; color: var(--slate-700); }
+.ins-block p { color: var(--slate-700); line-height: 1.7; }
+.ins-gloss { margin-top: 14px; border-top: 1px solid var(--gray-200); padding-top: 10px; }
+.ins-gloss summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; }
+.ins-gloss dl { margin: 10px 0 0; display: grid; gap: 8px; font-size: 0.88rem; }
+.ins-gloss dt { font-weight: 700; color: var(--slate-900); }
+.ins-gloss dd { margin: 0 0 4px; color: var(--slate-600); }
+
+/* ======================= Uji asumsi: hipotesis, keputusan, saran ======================= */
+.as-hyp { display: grid; gap: 4px; background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-sm); padding: 10px 14px; margin: 8px 0 10px; font-size: 0.88rem; color: var(--slate-700); }
+.as-hyp b { color: var(--slate-900); }
+.as-decision { display: flex; gap: 12px; align-items: flex-start; border-radius: var(--radius-sm); padding: 11px 14px; margin-bottom: 10px; font-size: 0.9rem; }
+.as-decision.ok { background: var(--slate-900); color: #fff; }
+.as-decision.fail { background: #8a3329; color: #fff; }
+.as-decision strong { display: block; font-size: 0.95rem; margin-bottom: 2px; }
+.as-viz { margin-top: 12px; }
+.as-fix { margin-top: 14px; border-top: 1px dashed #d8aaa3; padding-top: 12px; }
+.as-fix h5 { font-size: 0.92rem; color: #8a3329; margin-bottom: 8px; }
+.as-fix ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.as-fix li { font-size: 0.88rem; color: var(--slate-700); }
+.as-fix li strong { display: block; color: var(--slate-900); }
+.as-fix li .btn { margin-top: 6px; }
+
+.as-bar { display: flex; height: 10px; border-radius: var(--radius-pill); overflow: hidden; background: var(--surface-icon); margin: 12px 0 4px; }
+.as-bar span { display: block; height: 100%; }
+.as-bar .b-met { background: var(--slate-900); } .as-bar .b-bad { background: #8a3329; } .as-bar .b-man { background: var(--slate-400); }
+.as-counts { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 4px; font-size: 0.86rem; }
+.as-counts li { display: flex; justify-content: space-between; gap: 8px; color: var(--slate-700); }
+.as-counts b { color: var(--slate-900); }
+
+.as-transform { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: 22px 26px; margin-top: 18px; }
+.as-transform summary { cursor: pointer; font-weight: 700; font-size: 1.05rem; }
+.as-transform .hint { font-size: 0.88rem; color: var(--slate-500); margin: 8px 0 14px; }
+.as-transform table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.as-transform th { text-align: left; font-size: 0.78rem; color: var(--slate-500); font-weight: 600; padding: 0 10px 8px; border-bottom: 1px solid var(--gray-200); }
+.as-transform td { padding: 9px 10px; border-bottom: 1px solid var(--gray-200); }
+.as-transform select { font: inherit; padding: 7px 10px; border: 1px solid var(--gray-200); border-radius: var(--radius-sm); background: #fff; max-width: 100%; }
+.as-transform .acts { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; align-items: center; }
+.tr-active { display: inline-flex; gap: 6px; flex-wrap: wrap; margin: 6px 0 0; }
+.tr-chip { font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--slate-900); color: #fff; }
+.as-active-banner { margin-bottom: 18px; }
+
+/* ======================= Tabel pratinjau data ======================= */
+.table-scroll { max-height: 420px; overflow: auto; border: 1px solid var(--gray-200); border-radius: var(--radius-md); }
+.data-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 0.88rem; }
+.data-table thead th { position: sticky; top: 0; z-index: 1; background: var(--slate-900); color: #fff; font-weight: 600; text-align: left; padding: 11px 14px; white-space: nowrap; border-bottom: 0; }
+.data-table thead th .th-type { display: block; font-size: 0.68rem; font-weight: 500; opacity: 0.7; margin-top: 1px; }
+.data-table tbody td { padding: 10px 14px; border-bottom: 1px solid var(--gray-200); white-space: nowrap; color: var(--slate-800, var(--slate-700)); }
+.data-table tbody tr:nth-child(odd) td { background: var(--white); }
+.data-table tbody tr:nth-child(even) td { background: var(--surface-card); }
+.data-table tbody tr:hover td { background: var(--surface-accent); }
+.data-table tbody tr:last-child td { border-bottom: 0; }
+.data-table td.num, .data-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.data-table td.rn, .data-table th.rn { color: var(--slate-500); text-align: center; width: 44px; font-variant-numeric: tabular-nums; }
+.data-table thead th.rn { color: rgba(255,255,255,0.7); }
+.data-table td.na { color: var(--slate-400); font-style: italic; }
+
+.ch { max-width: 560px; margin-left: auto; margin-right: auto; }
+.ch-row .ch-box .ch { max-width: 100%; }
+
+/* ======================= Perbaikan tampilan mobile ======================= */
+.as-layout > *, .charts-grid > *, .result-main-grid > * { min-width: 0; }
+.ch-row { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.risk-row { grid-template-columns: minmax(60px, 90px) minmax(0, 1fr) auto; }
+@media (max-width: 800px) {
+  .charts-grid { grid-template-columns: 1fr !important; }
+  .as-list, .as-transform { padding: 16px; }
+  .ins-find { padding: 14px; }
+  .as-card { padding: 14px; }
+}
+
+/* ======================= Grafik lebih proporsional ======================= */
+.ch { max-width: 420px; }
+.ins-find .ch-row { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 330px)); gap: 12px; justify-content: start; }
+.ins-find .ch-box { padding: 10px 12px; }
+.ins-find .ch-box h5 { font-size: 0.8rem; font-weight: 600; color: var(--slate-600); }
+.ins-find .ch { max-width: 100%; }
+.ins-find .ch-cap { font-size: 0.75rem; }
+.as-viz .ch-box { padding: 10px 12px; }
+.as-viz .ch-row { grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 330px)); justify-content: start; gap: 12px; }
+.as-viz .ch { max-width: 100%; }
+
+/* ======================= Peta risiko sapi ======================= */
+.risk-panel { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; align-items: center; }
+.risk-map .ch { max-width: 460px; }
+.cow-lab { font-size: 10px; font-weight: 700; fill: #fff; font-family: inherit; paint-order: stroke; stroke: rgba(0,0,0,0.25); stroke-width: 2px; }
+.cow-lab.muted { fill: var(--slate-500); stroke: none; font-weight: 600; }
+.cow-val { font-size: 10px; fill: #fff; font-family: inherit; paint-order: stroke; stroke: rgba(0,0,0,0.25); stroke-width: 2px; }
+.cow-legend { justify-content: center; margin-top: 8px; }
+.cow-legend i.hatch { background: repeating-linear-gradient(45deg, #efedf0, #efedf0 3px, #d3d0d6 3px, #d3d0d6 5px); border: 1px solid #d3d0d6; }
+.risk-rank h5 { font-size: 0.9rem; margin: 0 0 6px; }
+.risk-rank .risk-row { grid-template-columns: minmax(54px, 84px) minmax(0, 1fr) auto; padding: 6px 0; font-size: 0.84rem; }
+.rk-name { text-transform: capitalize; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 900px) { .risk-panel { grid-template-columns: 1fr; } }
+
+/* ======================= Pilih Uji ======================= */
+.pick-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.pick-card {
+  display: flex; flex-direction: column; gap: 8px; text-align: left; cursor: pointer; font: inherit;
+  background: var(--white); border: 1.5px solid var(--gray-200); border-radius: var(--radius-lg);
+  padding: 20px; color: var(--slate-700); transition: border-color .15s, box-shadow .15s, transform .15s;
+}
+.pick-card:hover { border-color: var(--slate-400); transform: translateY(-2px); }
+.pick-card:focus-visible { outline: 3px solid var(--slate-400); outline-offset: 2px; }
+.pick-card.selected { border-color: var(--slate-900); box-shadow: 0 0 0 2px var(--slate-900); }
+.pick-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.pick-code { font-size: 1.35rem; letter-spacing: -0.01em; color: var(--slate-900); }
+.pick-tag { font-size: 0.72rem; font-weight: 700; padding: 3px 10px; border-radius: var(--radius-pill); background: var(--surface-icon); color: var(--slate-600); }
+.pick-card.selected .pick-tag { background: var(--slate-900); color: var(--white); }
+.pick-full { font-size: 0.82rem; color: var(--slate-500); }
+.pick-desc { font-size: 0.92rem; line-height: 1.55; }
+.pick-need { list-style: none; margin: 4px 0 0; padding: 10px 0 0; border-top: 1px dashed var(--gray-200); display: grid; gap: 3px; font-size: 0.84rem; color: var(--slate-700); }
+.pick-need .off { color: var(--slate-400); }
+.pick-ex { font-size: 0.8rem; font-style: italic; color: var(--slate-500); margin-top: auto; padding-top: 6px; }
+.pick-help { background: var(--surface-card); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 8px; font-size: 0.9rem; color: var(--slate-700); }
+.pick-help ul { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 4px; }
+
+/* Bilah uji terpilih di halaman Pilih Variabel */
+.var-method-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; background: var(--surface-card); border: 1px solid var(--gray-200); border-radius: var(--radius-md); padding: 12px 18px; margin-bottom: 24px; font-size: 0.92rem; }
+.var-method-bar .vm-code { font-weight: 800; color: var(--slate-900); }
+.var-method-bar .vm-full { color: var(--slate-500); margin-left: 6px; }
+
+/* Kotak variabel yang tidak dipakai oleh uji terpilih */
+.dropzone.disabled { opacity: 0.45; background: var(--surface-icon); border-style: dashed; cursor: not-allowed; pointer-events: none; }

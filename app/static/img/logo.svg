@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="DefectDSA">
+  <rect width="64" height="64" rx="16" fill="#2e2e37"/>
+  <!-- tanduk -->
+  <path d="M17 20c-4-1-7-4-7-8 4 0 8 2 10 6M47 20c4-1 7-4 7-8-4 0-8 2-10 6" fill="none" stroke="#d3dad9" stroke-width="3" stroke-linecap="round"/>
+  <!-- telinga -->
+  <ellipse cx="12.5" cy="28" rx="6" ry="3.4" transform="rotate(-20 12.5 28)" fill="#d3dad9"/>
+  <ellipse cx="51.5" cy="28" rx="6" ry="3.4" transform="rotate(20 51.5 28)" fill="#d3dad9"/>
+  <!-- kepala -->
+  <path d="M19 19h26c3 0 5 2 5 5v10c0 7-4 11-8 12H22c-4-1-8-5-8-12V24c0-3 2-5 5-5z" fill="#fff"/>
+  <!-- bercak kulit -->
+  <path d="M30 19h15c3 0 5 2 5 5v6c-6 0-10-3-12-7-1-2-4-3-8-4z" fill="#2e2e37" opacity=".85"/>
+  <!-- mata -->
+  <circle cx="24" cy="30" r="2.2" fill="#2e2e37"/>
+  <circle cx="40" cy="30" r="2.2" fill="#2e2e37"/>
+  <!-- moncong -->
+  <rect x="19" y="38" width="26" height="14" rx="7" fill="#d3dad9"/>
+  <circle cx="27" cy="45" r="1.8" fill="#2e2e37"/>
+  <circle cx="37" cy="45" r="1.8" fill="#2e2e37"/>
+</svg>

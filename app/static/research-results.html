@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hasil Analisis — MANCOVA Research</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/research.css">
+<link rel="stylesheet" href="css/analysis.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html" class="active">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container" style="padding-top:24px;">
+
+  <div id="researchStepper" data-active="7"></div>
+
+  <div id="resEmpty" hidden class="card" style="text-align:center;padding:48px 24px;margin-bottom:48px;">
+    <h2 style="margin-bottom:8px;">Belum ada hasil analisis</h2>
+    <p style="color:var(--slate-500);margin-bottom:20px;">Unggah data dan jalankan analisis terlebih dahulu.</p>
+    <a href="research-upload.html" class="btn btn-primary">Mulai Analisis</a>
+  </div>
+
+  <div id="resContent" hidden>
+    <div class="notice" id="resSavedNote" hidden style="margin-bottom:16px;"></div>
+    <div class="result-banner" id="resBanner"></div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="font-size:1.25rem; margin-bottom:4px;">Wawasan &amp; Interpretasi</h3>
+      <p style="color:var(--slate-500); font-size:0.9rem; margin-bottom:18px;">Penjelasan hasil dalam bahasa sehari-hari, lengkap dengan grafik yang mendukung.</p>
+      <div id="resInsight"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <div class="result-card-head">
+        <h3 style="font-size:1.2rem;" id="resTestsTitle">Hasil Uji</h3>
+        <span class="status-pill gray">Signifikan bila p &lt; 0,05</span>
+      </div>
+      <div id="resTests"></div>
+    </div>
+
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="font-size:1.1rem; margin-bottom:14px;">Variabel yang Dianalisis</h3>
+      <dl class="vars-summary" id="resVars"></dl>
+    </div>
+
+    <div class="charts-grid" style="grid-template-columns:1.5fr 1fr;">
+      <div class="card chart-card"><h3>Peta Risiko Defek per Lokasi</h3><p class="res-note" style="margin:-6px 0 10px;">Warna pada tubuh sapi menunjukkan tingkat rata-rata defek di tiap bagian.</p><div id="resRisk"></div></div>
+      <div class="card chart-card"><h3>Rata-rata Defek per Kategori Ketinggian</h3><div id="resAlt"></div></div>
+    </div>
+
+    <div class="result-actions" style="padding-bottom:64px;">
+      <a href="research-upload.html" class="btn-link" style="text-decoration:underline;">Jalankan Analisis Baru</a>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="laporan.html" class="btn btn-secondary" id="repLink">Buka Laporan Lengkap</a>
+        <button type="button" class="btn btn-primary" id="printBtn">⬇ Cetak / Simpan PDF</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/insight-render.js"></script>
+<script src="js/script.js"></script>
+<script src="js/results.js"></script>
+</body>
+</html>

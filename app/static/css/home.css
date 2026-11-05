@@ -1,0 +1,234 @@
+/* ==========================================================================
+   Home page — layout khusus
+   ========================================================================== */
+
+/* --- Hero --- */
+.hero {
+  padding: 56px 0 80px;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font-size: 3.1rem;
+  margin: 20px 0 22px;
+}
+
+.hero-copy p {
+  font-size: 1.05rem;
+  color: var(--slate-500);
+  max-width: 480px;
+  margin-bottom: 32px;
+}
+
+.hero-media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-card);
+}
+
+.hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Value props / icon grid --- */
+.value-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  padding: 32px;
+}
+
+.value-card .icon-circle {
+  background: var(--surface-icon);
+  color: var(--slate-900);
+  border-radius: var(--radius-md);
+}
+
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+
+.value-card h3 {
+  font-size: 1.05rem;
+  margin: 18px 0 8px;
+}
+
+.value-card p {
+  font-size: 0.92rem;
+  color: var(--slate-500);
+}
+
+/* --- Scientific Methodology --- */
+.method-section {
+  display: grid;
+  grid-template-columns: 0.85fr 1fr;
+  gap: 56px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.method-media {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+}
+
+.method-media img {
+  border-radius: var(--radius-md);
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.method-media .tall {
+  grid-row: span 2;
+  aspect-ratio: 3 / 4;
+}
+
+.stat-block {
+  background: var(--slate-900);
+  color: var(--white);
+  border-radius: var(--radius-xl);
+  padding: 18px;
+}
+
+.stat-block strong {
+  display: block;
+  font-size: 1.4rem;
+}
+
+.stat-block.light {
+  background: var(--surface-accent);
+  color: var(--slate-900);
+}
+
+.stat-block.light span {
+  color: var(--slate-600);
+}
+
+.stat-block span {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+.method-list {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.method-list li {
+  display: flex;
+  gap: 16px;
+}
+
+.method-list .icon-circle {
+  flex-shrink: 0;
+}
+
+.method-list h4 {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.method-list p {
+  font-size: 0.9rem;
+  color: var(--slate-500);
+}
+
+/* --- CTA band --- */
+/* Section headers shared */
+.section-head {
+  max-width: 620px;
+  margin: 0 auto 8px;
+  text-align: center;
+}
+
+.section-head h2 {
+  font-size: 2rem;
+  margin-bottom: 14px;
+}
+
+.section-head p {
+  color: var(--slate-500);
+  font-size: 1rem;
+}
+
+/* --- Portal Peneliti pill (footer) --- */
+.portal-peneliti-pill {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px 8px 8px;
+  transition: background 0.15s ease;
+}
+
+.portal-peneliti-pill:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.portal-peneliti-text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.25;
+}
+
+.portal-peneliti-text strong {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.portal-peneliti-text span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+@media (max-width: 700px) {
+  .portal-peneliti-pill {
+    position: static;
+    transform: none;
+    margin: 16px auto 0;
+    width: fit-content;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-grid, .method-section {
+    grid-template-columns: 1fr;
+  }
+  .value-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .hero-copy h1 {
+    font-size: 2.2rem;
+  }
+  .method-media {
+    order: 2;
+  }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kontak — MANCOVA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/kontak.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html" class="active">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container">
+  <div class="page-head">
+    <h1>Hubungi Kami</h1>
+    <p>Punya pertanyaan, kendala teknis, atau ingin bekerja sama dalam riset? Tulis pesan Anda dan kami akan membalasnya lewat email.</p>
+  </div>
+
+  <div class="contact-layout">
+    <div class="contact-info">
+      <div class="contact-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div><h3>Lokasi</h3><p>Universitas Brawijaya, Malang, Jawa Timur</p></div>
+      </div>
+      <div class="contact-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+        <div><h3>Email</h3><a href="mailto:research@mancova.ac.id">research@mancova.ac.id</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></div>
+        <div><h3>Telepon</h3><a href="tel:+62341551611">+62 341 551611</a></div>
+      </div>
+      <div class="contact-card">
+        <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5z"/><path d="M19 19v2H6"/></svg></div>
+        <div><h3>Butuh panduan?</h3><p>Pertanyaan umum tentang cara memakai sistem dijawab di <a href="dokumentasi.html#faq" style="text-decoration:underline;">halaman dokumentasi</a>.</p></div>
+      </div>
+    </div>
+
+    <form class="contact-form" id="contactForm" novalidate>
+      <h2>Kirim Pesan</h2>
+      <div class="cf-row">
+        <div class="cf-field"><label for="cf_nama">Nama</label><input id="cf_nama" type="text" autocomplete="name" placeholder="Nama Anda"><span class="cf-msg">Nama wajib diisi.</span></div>
+        <div class="cf-field"><label for="cf_email">Email</label><input id="cf_email" type="email" autocomplete="email" placeholder="nama@email.com"><span class="cf-msg">Masukkan alamat email yang valid.</span></div>
+      </div>
+      <div class="cf-field">
+        <label for="cf_subjek">Topik</label>
+        <select id="cf_subjek">
+          <option>Pertanyaan umum</option>
+          <option>Kendala teknis</option>
+          <option>Kerja sama riset</option>
+          <option>Lainnya</option>
+        </select>
+      </div>
+      <div class="cf-field"><label for="cf_pesan">Pesan</label><textarea id="cf_pesan" placeholder="Tulis pesan Anda di sini"></textarea><span class="cf-msg">Pesan wajib diisi.</span></div>
+      <div class="cf-foot">
+        <small>Tombol kirim akan membuka aplikasi email di perangkat Anda dengan pesan yang sudah terisi.</small>
+        <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+  var f = {
+    nama: document.getElementById("cf_nama"),
+    email: document.getElementById("cf_email"),
+    pesan: document.getElementById("cf_pesan"),
+  };
+  var ok = true;
+  function cek(el, valid) {
+    el.closest(".cf-field").classList.toggle("invalid", !valid);
+    if (!valid) ok = false;
+  }
+  cek(f.nama, f.nama.value.trim().length > 0);
+  cek(f.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value.trim()));
+  cek(f.pesan, f.pesan.value.trim().length > 0);
+  if (!ok) return;
+  var subjek = document.getElementById("cf_subjek").value;
+  var isi = f.pesan.value.trim() + "\n\n— " + f.nama.value.trim() + " (" + f.email.value.trim() + ")";
+  window.location.href =
+    "mailto:research@mancova.ac.id?subject=" + encodeURIComponent("[MANCOVA] " + subjek) +
+    "&body=" + encodeURIComponent(isi);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+data/
+__pycache__/
+*.pyc
+.env
+.env.*
+!.env.example
+.alchemy/
+.pytest_cache/
+
+# Object file
+*.o
+
+# Ada Library Information
+*.ali
+
+node_modules/
+tests/.tmp/
+tests/.report/
+tests/.results/

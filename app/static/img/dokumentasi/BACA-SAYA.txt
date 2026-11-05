@@ -1,0 +1,9 @@
+Letakkan foto dokumentasi di folder ini (.jpg .jpeg .png .webp).
+Urutan tampil mengikuti nama file (01-xxx.jpg, 02-xxx.jpg, ...).
+Ukuran disarankan sisi terpanjang 1600-2400 px dan <= 1 MB per foto agar halaman cepat dimuat.
+
+PENTING: file contoh-01.jpg ... contoh-14.jpg adalah ILUSTRASI PENGGANTI sementara.
+Hapus semuanya setelah foto asli dimasukkan.
+
+Keterangan foto (opsional): buat file captions.json di folder ini:
+{ "01-pembukaan.jpg": "Pembukaan kegiatan", "02-sampling.jpg": "Pengambilan sampel di lapangan" }

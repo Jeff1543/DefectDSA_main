@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unggah Data — DefectDSA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/research.css">
+<link rel="stylesheet" href="css/analysis.css">
+</head>
+<body>
+
+<div class="navbar-wrap">
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo"><img src="img/logo.svg" alt="" class="nav-logo-mark" width="32" height="32" />DefectDSA</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Beranda</a></li>
+      <li><a href="features.html">Fitur</a></li>
+      <li><a href="research-choose.html" class="active">Riset</a></li>
+      <li><a href="dokumentasi.html">Dokumentasi</a></li>
+      <li><a href="about.html">Tentang Kami</a></li>
+      <li><a href="kontak.html">Kontak</a></li>
+    </ul>
+    <a href="research-choose.html" class="btn btn-primary nav-cta">Start Analysis</a>
+  </nav>
+</div>
+
+<div class="container" style="padding-top:24px;">
+
+  <div style="max-width:980px;margin:0 auto 16px;"><a href="research-choose.html" class="btn-link" style="font-size:0.9rem;">← Ganti jenis analisis</a></div>
+
+  <div id="researchStepper" data-active="1"></div>
+
+  <div style="max-width:980px;margin:0 auto 16px;"><a href="research-choose.html" class="btn-link" style="font-size:0.9rem;">← Ganti jenis analisis</a></div>
+
+  <div class="research-head">
+    <h1>Unggah Data Sapi untuk Analisis</h1>
+    <p>Unggah file Excel atau CSV Anda untuk menjalankan analisis ragam (ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier). Sistem membaca file Anda dan menentukan metode yang sesuai dari variabel yang Anda pilih.</p>
+  </div>
+
+  <div class="prev-result notice" id="lastResultBar" hidden>
+    <div class="meta" id="lastResultMeta"></div>
+    <div class="acts">
+      <a href="research-results.html?last=1" class="btn btn-secondary btn-sm">Lihat hasil sebelumnya</a>
+      <button type="button" class="btn-link" id="clearLastBtn" style="text-decoration:underline;">Hapus</button>
+    </div>
+  </div>
+
+  <div class="notice notice-error" id="uploadError" role="alert" hidden style="max-width:980px;margin:0 auto 16px;"></div>
+
+  <div class="upload-card">
+    <div class="upload-dropzone" id="dropzone" tabindex="0" role="button" aria-label="Pilih file CSV atau Excel">
+      <div class="cloud-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 0 1-1-7.9A5 5 0 0 1 16 8a4 4 0 0 1 1 7.9"/><path d="M12 12v7M9 16l3-3 3 3"/></svg></div>
+      <h3>Tarik &amp; lepas file Anda ke sini</h3>
+      <p>atau klik untuk menelusuri komputer Anda</p>
+      <span class="file-pill">Menerima .xlsx, .csv (Maks 10MB)</span>
+      <div class="upload-file-selected" id="fileSelectedRow">
+        <span>📄</span><span id="fileName"></span>
+      </div>
+      <input type="file" id="fileInput" accept=".csv,.xlsx" hidden>
+    </div>
+
+    <div class="upload-actions upload-actions-end">
+      <div style="display:flex; gap:12px;">
+        <button type="button" class="btn btn-secondary" id="cancelBtn">Batal</button>
+        <button type="button" class="btn btn-primary" id="runBtn" disabled>Unggah &amp; Lanjutkan</button>
+      </div>
+    </div>
+      <div class="template-box">
+        <div class="template-head">
+          <strong>Belum punya file? Mulai dari templat</strong>
+          <span>Templat kosong dengan nama kolom bebas, tinggal isi dengan data Anda.</span>
+        </div>
+        <div class="template-grid">
+          <a class="template-tile" href="templat-data.xlsx" download>
+            <span class="template-ico xlsx">XLSX</span>
+            <span class="template-text"><strong>Templat Excel</strong><small>Kosong &amp; siap diisi. Nama kolom bebas, ada sheet petunjuk.</small></span>
+            <span class="template-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></span>
+          </a>
+          <a class="template-tile" href="contoh-data.xlsx" download>
+            <span class="template-ico xlsx">XLSX</span>
+            <span class="template-text"><strong>Contoh Data Terisi</strong><small>24 ekor sapi untuk mencoba seluruh alur analisis.</small></span>
+            <span class="template-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></span>
+          </a>
+          <a class="template-tile" href="templat-data.csv" download>
+            <span class="template-ico csv">CSV</span>
+            <span class="template-text"><strong>Templat CSV</strong><small>Kosong, format teks sederhana, bisa dibuka di aplikasi apa pun.</small></span>
+            <span class="template-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg></span>
+          </a>
+        </div>
+        <details class="template-format">
+          <summary>Seperti apa format data yang benar?</summary>
+          <div class="template-format-body">
+            <div class="table-scroll">
+              <table class="template-preview">
+                <thead><tr>
+                  <th>Variabel_1</th><th>Variabel_2</th><th>Variabel_3</th><th>Variabel_4</th>
+                </tr></thead>
+                <tbody>
+                  <tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+                  <tr><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <ul class="template-rules">
+              <li>Satu baris = satu pengamatan, satu kolom = satu variabel. Nama kolom bebas; peran variabel dipilih di langkah berikutnya.</li>
+              <li>Judul atau keterangan di atas tabel tidak masalah, sistem mencari baris nama kolom otomatis.</li>
+              <li>Kosongkan sel bila data tidak ada (jangan isi 0). Koma desimal ala Excel Indonesia ikut terbaca.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+
+  </div>
+
+  <div class="upload-perks">
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Data Tidak Disimpan</h3>
+      <p>File Anda hanya diproses sementara di memori server (maksimal 1 jam). Yang tersimpan hanya ringkasan hasil analisis, bukan isi datanya.</p>
+    </div>
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+      <h3>Validasi Waktu Nyata</h3>
+      <p>Umpan balik instan pada struktur data agar analisis Anda berjalan tanpa kesalahan atau bias.</p>
+    </div>
+    <div>
+      <div class="icon-circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.4"/><circle cx="18" cy="6" r="2.4"/><circle cx="12" cy="18" r="2.4"/><path d="M8 7l6 9M16 7l-6 9"/></svg></div>
+      <h3>Metode Menyesuaikan</h3>
+      <p>Sistem memilih ANOVA, ANCOVA, MANOVA, MANCOVA, atau Regresi Linier sesuai variabel yang Anda tentukan.</p>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="nav-logo" style="color:var(--white);">MANCOVA</span>
+        <p>Platform analisis statistik multivariat tercanggih untuk deteksi dini kesehatan kulit ternak. Menggunakan metode statistik lanjutan untuk akurasi riset yang tak tertandingi.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigasi</h4>
+        <ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="features.html">Fitur</a></li>
+          <li><a href="research-choose.html">Riset</a></li>
+          <li><a href="dokumentasi.html">Dokumentasi</a></li>
+          <li><a href="kontak.html">Kontak</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="dokumentasi.html#faq">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms &amp; Conditions</a></li>
+          <li><a href="kontak.html">Help Center</a></li>
+          <li><a href="Authentication.html">Portal Peneliti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Kontak</h4>
+        <ul>
+          <li>Universitas Brawijaya, Malang</li>
+          <li>research@mancova.ac.id</li>
+          <li>+62 341 551611</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 MANCOVA Livestock Analytics. Hak cipta dilindungi undang-undang.</div>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/research-state.js"></script>
+<script src="js/script.js"></script>
+<script src="js/upload.js"></script>
+</body>
+</html>

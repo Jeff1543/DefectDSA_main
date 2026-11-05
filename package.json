@@ -1,0 +1,30 @@
+{
+  "name": "defectdsa-tests",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tes otomatis frontend (Vitest) dan end-to-end (Playwright) untuk DefectDSA",
+  "type": "module",
+  "engines": {
+    "node": ">=24.11.1"
+  },
+  "scripts": {
+    "test": "node node_modules/vitest/vitest.mjs run",
+    "test:watch": "node node_modules/vitest/vitest.mjs",
+    "test:e2e": "node node_modules/@playwright/test/cli.js test",
+    "test:e2e:ui": "node node_modules/@playwright/test/cli.js test --ui",
+    "test:all": "node node_modules/vitest/vitest.mjs run && node node_modules/@playwright/test/cli.js test",
+    "e2e:install": "node node_modules/@playwright/test/cli.js install chromium",
+    "cf:dev": "alchemy dev",
+    "cf:plan": "alchemy plan --stage prod",
+    "cf:deploy": "alchemy deploy --stage prod"
+  },
+  "devDependencies": {
+    "@alchemy.run/cloudflare": "^2.0.0-beta.85",
+    "@effect/platform-node": "^4.1.2",
+    "@playwright/test": "^1.49.0",
+    "alchemy": "^2.0.0-beta.85",
+    "effect": "^4.1.2",
+    "jsdom": "^25.0.0",
+    "vitest": "^2.1.0"
+  }
+}

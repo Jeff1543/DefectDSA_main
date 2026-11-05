@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Peneliti — DefectDSA</title>
+  <link rel="icon" href="img/logo.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/Authentication.css?v=5">
+</head>
+<body>
+  <main class="page">
+
+    <!-- Panel kiri: foto peternakan sapi (slideshow dekoratif) -->
+    <section class="plate" aria-label="Tentang DefectDSA">
+      <div class="plate-slides" aria-hidden="true">
+        <img class="plate-slide is-active" src="img/auth/sapi-1.jpg" alt="" />
+        <img class="plate-slide" src="img/auth/sapi-2.jpg" alt="" />
+        <img class="plate-slide" src="img/auth/sapi-3.jpg" alt="" />
+        <img class="plate-slide" src="img/auth/sapi-4.jpg" alt="" />
+      </div>
+      <div class="plate-shade" aria-hidden="true"></div>
+
+      <div class="plate-copy">
+        <h2>Dari data lapangan ke kesimpulan statistik, dalam satu alur.</h2>
+        <p>Unggah data, pilih uji, tentukan variabel, lalu baca hasilnya dalam bahasa yang mudah dipahami.</p>
+        <ul class="tests" aria-label="Uji yang tersedia">
+          <li>ANOVA</li>
+          <li>ANCOVA</li>
+          <li>MANOVA</li>
+          <li>MANCOVA</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Panel kanan: formulir -->
+    <section class="content">
+      <header class="top">
+        <a href="index.html" class="brand" aria-label="DefectDSA, ke beranda">
+          <img src="img/logo.svg" alt="" width="36" height="36">
+          <span>DefectDSA</span>
+        </a>
+        <nav class="top-nav" aria-label="Navigasi">
+          <a href="index.html">Beranda</a>
+          <a href="kontak.html">Bantuan</a>
+          <a href="#" class="register-btn" id="modeToggle">Daftar</a>
+        </nav>
+      </header>
+
+      <div class="form-wrap">
+        <div class="form-col">
+          <h1 id="portalTitle">Portal Peneliti</h1>
+          <p class="subtitle" id="portalSubtitle">Kelola data penelitian, pantau respons kuesioner, dan jalankan analisis ragam.</p>
+
+          <form id="loginForm" novalidate>
+            <div class="field" id="nameField" style="display:none;">
+              <label for="fullname">Nama lengkap</label>
+              <input id="fullname" name="fullname" type="text" autocomplete="name" placeholder="Nama Anda">
+              <span class="error" id="nameError"></span>
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" placeholder="nama@instansi.ac.id" required>
+              <span class="error" id="emailError"></span>
+            </div>
+
+            <div class="field">
+              <label for="password">Kata sandi</label>
+              <div class="password-wrap">
+                <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required minlength="6">
+                <button class="password-toggle" type="button" id="togglePassword" aria-label="Tampilkan kata sandi">
+                  <svg class="eye" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/>
+                    <circle cx="12" cy="12" r="3"/>
+                    <path class="slash" d="M4 4l16 16"/>
+                  </svg>
+                </button>
+              </div>
+              <span class="error" id="passwordError"></span>
+            </div>
+
+            <div class="form-options">
+              <label class="remember">
+                <input type="checkbox" id="remember">
+                <span>Ingat saya</span>
+              </label>
+              <a href="#" id="forgotLink">Lupa kata sandi?</a>
+            </div>
+
+            <button class="submit-btn" type="submit" id="submitBtn">Masuk</button>
+
+            <div class="status-message" id="statusMessage" role="status" aria-live="polite"></div>
+          </form>
+
+          <p class="security-note">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <span>Khusus peneliti dan administrator yang sudah memiliki akun.</span>
+          </p>
+        </div>
+      </div>
+
+      <footer class="foot">
+        <span>© 2026 DefectDSA, Universitas Brawijaya</span>
+        <span class="foot-links"><a href="index.html">Beranda</a><a href="kontak.html">Kontak</a></span>
+      </footer>
+    </section>
+  </main>
+
+  <script src="./js/api.js"></script>
+  <script src="./js/Authentication.js?v=5"></script>
+</body>
+</html>
