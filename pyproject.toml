@@ -1,2 +1,31 @@
+[project]
+name = "defectdsa"
+version = "2.1.0"
+description = "Sistem Informasi Manajemen Data Defek Kulit Sapi"
+requires-python = ">=3.11"
+# Samakan dengan requirements.txt (Render memakai requirements.txt, Vercel memakai file ini).
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+    "pandas",
+    "openpyxl",
+    "numpy",
+    "scipy",
+    "statsmodels",
+    "pydantic",
+    "httpx",
+    "psycopg[binary]",
+    "psycopg_pool",
+    "python-dotenv",
+]
+
 [tool.vercel]
 entrypoint = "app.api.main:app"
+
+# Ini aplikasi, bukan library: jangan coba membangun paket dari folder root.
+[tool.uv]
+package = false
+
+[tool.setuptools.packages.find]
+include = ["app*"]
