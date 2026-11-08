@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Sistem Informasi Manajemen Data Defek Kulit Sapi
 
 Sistem informasi berbasis web untuk mengotomatisasi pemodelan **MANCOVA (Multivariate Analysis of Covariance)** beserta interpretasi hasil menggunakan **Generative AI**, atas data defek kulit sapi (penyakit kaskado) yang diunggah pengguna dalam format CSV atau XLSX.
@@ -76,7 +75,7 @@ Daftar dependency final terdapat pada `requirements.txt`.
 
 - Provider: Anthropic (Claude), dipanggil langsung lewat REST API menggunakan `httpx` (tanpa SDK tambahan).
 - Diaktifkan dengan mengeset environment variable `ANTHROPIC_API_KEY`.
-- Apabila `ANTHROPIC_API_KEY` tidak diset, atau pemanggilan API gagal, sistem otomatis memakai narasi interpretasi fallback berbasis aturan (*rule-based*), sehingga hasil MANCOVA tetap dapat ditampilkan.
+- Apabila `ANTHROPIC_API_KEY` tidak diset, atau pemanggilan API gagal, sistem otomatis memakai narasi interpretasi fallback berbasis aturan (_rule-based_), sehingga hasil MANCOVA tetap dapat ditampilkan.
 
 ### Infrastructure
 
@@ -117,7 +116,7 @@ Farmer_Information_System/
 
 ### `app/api/main.py`
 
-Berisi konfigurasi aplikasi FastAPI, exception handler global, penyajian file statis, beserta *root endpoint* frontend.
+Berisi konfigurasi aplikasi FastAPI, exception handler global, penyajian file statis, beserta _root endpoint_ frontend.
 
 ### `app/api/analysis.py`
 
@@ -137,19 +136,19 @@ Berisi penyimpanan dataset sementara di memori, data profiling, beserta mekanism
 
 ### `app/api/services/preprocessing_service.py`
 
-Berisi logika *data cleaning* (imputasi mean/median/modus, *drop* baris) beserta fungsi `clean_dataset()` yang menyatukan hasilnya kembali ke penyimpanan dataset.
+Berisi logika _data cleaning_ (imputasi mean/median/modus, _drop_ baris) beserta fungsi `clean_dataset()` yang menyatukan hasilnya kembali ke penyimpanan dataset.
 
 ### `app/api/services/mancova_service.py`
 
-Berisi validasi struktur variabel, pengujian asumsi (linieritas, normalitas, Box's M, homogenitas kemiringan regresi), perhitungan MANCOVA, beserta penyusunan data *dashboard*.
+Berisi validasi struktur variabel, pengujian asumsi (linieritas, normalitas, Box's M, homogenitas kemiringan regresi), perhitungan MANCOVA, beserta penyusunan data _dashboard_.
 
 ### `app/api/services/interpretation_service.py`
 
-Berisi pemanggilan Generative AI (Anthropic API) beserta narasi *fallback* berbasis aturan.
+Berisi pemanggilan Generative AI (Anthropic API) beserta narasi _fallback_ berbasis aturan.
 
 ### `app/api/utils/errors.py`
 
-Berisi kelas-kelas *custom exception* (`FileError`, `CleaningError`, `VariableError`, dst.) yang ditangkap oleh *exception handler* di `main.py`.
+Berisi kelas-kelas _custom exception_ (`FileError`, `CleaningError`, `VariableError`, dst.) yang ditangkap oleh _exception handler_ di `main.py`.
 
 ### `app/static/`
 
@@ -239,11 +238,11 @@ Mengecek status backend.
 
 ### `POST /api/upload`
 
-Menerima dataset CSV/XLSX, mengembalikan `dataset_id` beserta hasil *data profiling* (preview, jumlah baris/kolom, deteksi *missing value*).
+Menerima dataset CSV/XLSX, mengembalikan `dataset_id` beserta hasil _data profiling_ (preview, jumlah baris/kolom, deteksi _missing value_).
 
 ### `POST /api/clean`
 
-Menjalankan *data cleaning* (imputasi mean/median/modus, atau *drop* baris) atas dataset dari `/api/upload`.
+Menjalankan _data cleaning_ (imputasi mean/median/modus, atau _drop_ baris) atas dataset dari `/api/upload`.
 
 ### `POST /api/analyze`
 
@@ -339,9 +338,9 @@ source .venv/bin/activate
 
 ### Environment Variables
 
-| Variable | Wajib | Keterangan |
-|---|---|---|
-| `ANTHROPIC_API_KEY` | Tidak | Apabila diset, `/api/analyze` memanggil Generative AI (Claude) sungguhan untuk narasi *AI Insights*. Apabila tidak diset, sistem otomatis memakai narasi *fallback* berbasis aturan. |
+| Variable            | Wajib | Keterangan                                                                                                                                                                           |
+| ------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `ANTHROPIC_API_KEY` | Tidak | Apabila diset, `/api/analyze` memanggil Generative AI (Claude) sungguhan untuk narasi _AI Insights_. Apabila tidak diset, sistem otomatis memakai narasi _fallback_ berbasis aturan. |
 
 Linux/macOS:
 
@@ -551,7 +550,7 @@ Jika sistem terasa lambat ketika digunakan banyak user, lakukan pengujian terleb
 
 Fitur berikut secara eksplisit **di luar scope V1** (lihat `API_CONTRACT_V1.md` beserta `FUNCTIONAL_SPECIFICATION_V1.md`), dan dapat dipertimbangkan pada versi sistem berikutnya apabila memang dibutuhkan beserta dikonfirmasi ulang ke dosen pembimbing:
 
-- fitur prediksi (*predictive modelling*) di luar pengujian MANCOVA,
+- fitur prediksi (_predictive modelling_) di luar pengujian MANCOVA,
 - pengembangan formulasi/modifikasi baru terhadap metode MANCOVA,
 - visualisasi tambahan,
 - export laporan sebagai endpoint download terpisah,
@@ -622,7 +621,6 @@ Deployment still requires a public Python backend URL in `API_ORIGIN`.
 
 Sistem harus tetap sederhana sampai kebutuhan nyata membuktikan bahwa kompleksitas tambahan memang diperlukan.
 
-
 ---
 
 ## Versi 2.1 — Portal peneliti, dashboard admin, analisis fleksibel
@@ -646,12 +644,12 @@ python run.py            # atau: uvicorn app.api.main:app --reload
 
 ### Struktur variabel fleksibel
 
-| Dependen | Kovariat | Metode |
-|---|---|---|
-| 1 | tidak ada | ANOVA |
-| 1 | ada | ANCOVA |
-| >= 2 | tidak ada | MANOVA |
-| >= 2 | ada | MANCOVA |
+| Dependen | Kovariat  | Metode  |
+| -------- | --------- | ------- |
+| 1        | tidak ada | ANOVA   |
+| 1        | ada       | ANCOVA  |
+| >= 2     | tidak ada | MANOVA  |
+| >= 2     | ada       | MANCOVA |
 
 Independen minimal 1 (kategorik atau numerik dengan 2–10 nilai unik). Uji asumsi menyesuaikan metode (Shapiro-Wilk, Levene, Box's M, linearitas, homogenitas kemiringan regresi).
 
@@ -659,19 +657,18 @@ Independen minimal 1 (kategorik atau numerik dengan 2–10 nilai unik). Uji asum
 
 `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`, `POST /api/questionnaire`, `GET /api/me/analyses[/{id}]`, `GET /api/admin/{overview,analyses,questionnaires,users}` dan `GET /api/admin/export/{analyses,questionnaires}.csv` (khusus admin).
 
-
 ### Mengelola login (akun)
 
 Ada dua peran: **admin** (melihat & mengelola semuanya) dan **peneliti** (hanya riwayat analisisnya sendiri).
 
-| Kebutuhan | Cara |
-|---|---|
-| Peneliti baru | Daftar sendiri di `/static/Authentication.html` (tombol *Daftar*), otomatis berperan peneliti |
-| Jadikan seseorang admin / kembalikan jadi peneliti | Dashboard admin → tab **Pengguna** → *Jadikan Admin* |
-| Peneliti lupa kata sandi | Dashboard admin → tab **Pengguna** → *Reset sandi*, lalu beri tahu sandi barunya |
-| Ganti sandi sendiri | Dashboard → tombol **Ubah Sandi** (kanan atas) |
-| Hapus akun | Dashboard admin → tab **Pengguna** → *Hapus* (riwayatnya tetap ada tanpa nama) |
-| Admin sendiri lupa sandi / belum punya admin | Terminal: `python manage.py reset-password EMAIL` atau `python manage.py create-admin EMAIL` |
+| Kebutuhan                                          | Cara                                                                                          |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Peneliti baru                                      | Daftar sendiri di `/static/Authentication.html` (tombol _Daftar_), otomatis berperan peneliti |
+| Jadikan seseorang admin / kembalikan jadi peneliti | Dashboard admin → tab **Pengguna** → _Jadikan Admin_                                          |
+| Peneliti lupa kata sandi                           | Dashboard admin → tab **Pengguna** → _Reset sandi_, lalu beri tahu sandi barunya              |
+| Ganti sandi sendiri                                | Dashboard → tombol **Ubah Sandi** (kanan atas)                                                |
+| Hapus akun                                         | Dashboard admin → tab **Pengguna** → _Hapus_ (riwayatnya tetap ada tanpa nama)                |
+| Admin sendiri lupa sandi / belum punya admin       | Terminal: `python manage.py reset-password EMAIL` atau `python manage.py create-admin EMAIL`  |
 
 Perintah terminal lain: `python manage.py users` (daftar akun), `python manage.py set-role EMAIL admin|peneliti`, `python manage.py db` (ringkasan isi database). Kata sandi ditanya interaktif sehingga tidak tersimpan di riwayat terminal.
 
@@ -693,7 +690,6 @@ Cadangan: gunakan backup bawaan penyedia atau `pg_dump "$DATABASE_URL" > cadanga
 
 Tabel, kolom, dan contoh query ada di `docs/DATABASE.md`. Jangan commit folder `data/`, dan jangan mengedit kolom `password_hash` secara manual (pakai Reset sandi).
 
-
 ### Statistika Deskriptif, Dokumentasi (galeri foto), dan interpretasi AI
 
 - **Statistika Deskriptif** (`/static/statdes.html`): unggah file, pilih variabel, opsional bandingkan antar kelompok. Menampilkan ringkasan angka, histogram, boxplot, frekuensi kategori, perbandingan kelompok, dan korelasi. Tersimpan juga di dashboard admin (metode `STATDES`).
@@ -708,6 +704,9 @@ Tabel, kolom, dan contoh query ada di `docs/DATABASE.md`. Jangan commit folder `
 pip install pytest
 python -m pytest tests -q
 ```
+
 =======
+
 # DefectDSA_main
->>>>>>> 440b28db07c9604c7f14a562a9eac48b98213316
+
+> > > > > > > 440b28db07c9604c7f14a562a9eac48b98213316

@@ -62,6 +62,8 @@ html { scroll-padding-top: 88px; }
 }
 
 .hero-full .nav-logo { color: var(--white); }
+.hero-full .nav-toggle { color: var(--white); }
+.hero-full .navbar-wrap.is-scrolled .nav-toggle { color: var(--slate-900); }
 .hero-full .nav-links a { color: rgba(255, 255, 255, 0.88); }
 .hero-full .nav-links a:hover { background: rgba(255, 255, 255, 0.18); color: var(--white); }
 .hero-full .nav-links a.active { background: var(--white); color: var(--slate-900); }

@@ -299,3 +299,7 @@
 
 /* Kotak variabel yang tidak dipakai oleh uji terpilih */
 .dropzone.disabled { opacity: 0.45; background: var(--surface-icon); border-style: dashed; cursor: not-allowed; pointer-events: none; }
+
+@media (max-width: 480px) {
+  .as-badge { white-space: normal; text-align: center; }
+}

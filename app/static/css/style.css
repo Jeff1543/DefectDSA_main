@@ -808,6 +808,97 @@ img {
   display: inline-block;
 }
 
+
+/* ==========================================================================
+   Responsif: navigasi mobile (hamburger), dashboard, grid
+   Tombol .nav-toggle disisipkan oleh js/script.js (initMobileNav).
+   ========================================================================== */
+
+.nav-toggle {
+  display: none;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--slate-900);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.nav-toggle:hover { background: rgba(127, 127, 127, 0.14); }
+.nav-toggle:focus-visible { outline: 3px solid var(--surface-accent); outline-offset: 1px; }
+.nav-toggle svg { width: 22px; height: 22px; }
+.nav-toggle .ico-close { display: none; }
+.nav-toggle[aria-expanded="true"] .ico-open { display: none; }
+.nav-toggle[aria-expanded="true"] .ico-close { display: block; }
+
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; }
+
+  .navbar { position: relative; padding: 8px 8px 8px 20px; gap: 8px; }
+  .navbar .nav-logo { margin-right: auto; }
+
+  /* Menu jadi panel yang turun di bawah navbar */
+  .navbar-wrap .navbar .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2px;
+    padding: 10px;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    max-height: calc(100vh - 96px);
+    max-height: calc(100dvh - 96px);
+    overflow-y: auto;
+  }
+  .navbar-wrap.nav-open .navbar .nav-links { display: flex; }
+  .navbar-wrap .navbar .nav-links a {
+    display: block;
+    padding: 13px 16px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    color: var(--slate-600);
+  }
+  .navbar-wrap .navbar .nav-links a:hover { background: var(--surface-card); color: var(--slate-900); }
+  .navbar-wrap .navbar .nav-links a.active { background: var(--slate-900); color: var(--white); }
+}
+
+@media (max-width: 480px) {
+  .navbar-wrap { padding: 12px 12px 0; }
+  .navbar .nav-logo { font-size: 1.02rem; gap: 8px; }
+  .navbar .nav-logo-mark { width: 28px; height: 28px; }
+  .navbar .nav-cta { padding: 3px 12px; font-size: 0.85rem; }
+}
+@media (max-width: 360px) {
+  .navbar .nav-cta { display: none; } /* ada di dalam menu */
+}
+
+/* Stepper 7 langkah: tetap satu baris di HP (label hanya muncul di layar lebar) */
+@media (max-width: 700px) {
+  .step-indicator.steps-7 { flex-wrap: nowrap; row-gap: 0; justify-content: center; }
+  .step-indicator.steps-7 .step-circle { width: 34px; height: 34px; }
+  .step-indicator.steps-7 .step-circle svg { width: 16px; height: 16px; }
+  .step-indicator.steps-7 .step-line { width: auto; flex: 1 1 4px; min-width: 4px; max-width: 26px; margin-bottom: 0; }
+}
+@media (max-width: 400px) {
+  .step-indicator.steps-7 .step-circle { width: 30px; height: 30px; }
+  .step-indicator.steps-7 .step-circle svg { width: 14px; height: 14px; }
+}
+
+/* Tabel & blok lebar tidak boleh mendorong halaman melebar di layar kecil */
+.table-scroll, .data-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+img, svg, video, canvas { max-width: 100%; }
+
 @media print { body { background: #fff !important; } }
 
 .nav-logo-mark {

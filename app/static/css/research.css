@@ -150,6 +150,8 @@
   margin-bottom: 32px;
 }
 
+.result-banner-text { min-width: 0; line-height: 1.5; }
+
 .result-banner .check {
   width: 26px;
   height: 26px;
@@ -886,4 +888,11 @@
 
 @media (max-width: 800px) {
   .template-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .result-banner { align-items: flex-start; padding: 16px; }
+  .result-banner .check { margin-top: 1px; }
+  .result-actions { flex-direction: column-reverse; align-items: stretch; }
+  .result-actions .btn { width: 100%; }
 }

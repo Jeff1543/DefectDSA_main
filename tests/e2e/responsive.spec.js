@@ -22,3 +22,50 @@ test("login di HP: formulir tampil dan tidak melebar", async ({ page }) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test.describe("menu navigasi mobile (hamburger)", () => {
+  test("di HP: menu tertutup, terbuka lewat tombol, dan menutup setelah memilih tautan", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto("/static/features.html");
+
+    const toggle = page.locator(".nav-toggle");
+    const links = page.locator(".nav-links");
+    await expect(toggle).toBeVisible();
+    await expect(links).toBeHidden();
+    await expect(toggle).toHaveAttribute("aria-expanded", "false");
+
+    await toggle.click();
+    await expect(links).toBeVisible();
+    await expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+    await links.getByRole("link", { name: "Kontak" }).click();
+    await expect(page).toHaveURL(/kontak\.html$/);
+  });
+
+  test("Escape menutup menu", async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto("/static/about.html");
+    await page.locator(".nav-toggle").click();
+    await expect(page.locator(".nav-links")).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(page.locator(".nav-links")).toBeHidden();
+  });
+
+  test("di desktop: tombol hamburger tersembunyi dan menu tampil biasa", async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto("/static/features.html");
+    await expect(page.locator(".nav-toggle")).toBeHidden();
+    await expect(page.locator(".nav-links")).toBeVisible();
+  });
+
+  for (const w of [320, 375, 768]) {
+    for (const file of ["index", "features", "about", "kontak", "panduan", "dokumentasi", "Authentication", "research-choose", "research-upload"]) {
+      test(`tanpa scroll horizontal: ${file}.html @${w}px`, async ({ page }) => {
+        await page.setViewportSize({ width: w, height: 800 });
+        await page.goto(`/static/${file}.html`);
+        const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+        expect(overflow).toBeLessThanOrEqual(0);
+      });
+    }
+  }
+});

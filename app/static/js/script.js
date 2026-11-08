@@ -64,8 +64,46 @@ function renderResearchStepper(containerId, activeStep) {
   }).join("");
 }
 
+/**
+ * Menu hamburger untuk layar kecil. Tombol disisipkan otomatis ke setiap
+ * .navbar yang punya .nav-links, jadi tidak perlu mengubah HTML tiap halaman.
+ */
+function initMobileNav() {
+  const wrap = document.querySelector(".navbar-wrap");
+  const nav = wrap && wrap.querySelector(".navbar");
+  const links = nav && nav.querySelector(".nav-links");
+  if (!links || nav.querySelector(".nav-toggle")) return;
+
+  if (!links.id) links.id = "navLinks";
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "nav-toggle";
+  btn.setAttribute("aria-controls", links.id);
+  btn.setAttribute("aria-expanded", "false");
+  btn.setAttribute("aria-label", "Buka menu");
+  btn.innerHTML =
+    '<svg class="ico-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>' +
+    '<svg class="ico-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+  nav.appendChild(btn);
+
+  const setOpen = (open) => {
+    wrap.classList.toggle("nav-open", open);
+    btn.setAttribute("aria-expanded", String(open));
+    btn.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+  };
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains("nav-open"));
+  });
+  links.addEventListener("click", (e) => { if (e.target.closest("a")) setOpen(false); });
+  document.addEventListener("click", (e) => { if (!wrap.contains(e.target)) setOpen(false); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { setOpen(false); btn.focus(); } });
+  window.matchMedia("(min-width: 901px)").addEventListener("change", (m) => { if (m.matches) setOpen(false); });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("MANCOVA page loaded:", document.title);
+  initMobileNav();
 
   const stepperEl = document.getElementById("researchStepper");
   if (stepperEl && stepperEl.dataset.active) {

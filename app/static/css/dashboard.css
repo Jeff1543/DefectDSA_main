@@ -94,6 +94,10 @@
   .bar-row { grid-template-columns: 110px 1fr 64px; }
 }
 @media (max-width: 520px) {
+  .dash-user { flex-wrap: wrap; gap: 8px; width: 100%; }
+  .dash-user-name { flex: 1 1 100%; }
+  .dash-wrap { padding: 24px 16px 64px; }
+  .dash-head h1 { font-size: 1.5rem; }
   .stat-grid { grid-template-columns: 1fr; }
   .modal-card { padding: 20px 16px; }
 }

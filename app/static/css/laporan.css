@@ -178,6 +178,8 @@
 }
 
 @media (max-width: 640px) {
+  .laporan-footer-actions { flex-wrap: wrap; }
+  .laporan-footer-actions .btn { flex: 1 1 100%; }
   .env-grid { grid-template-columns: 1fr; }
   .map-marker { position: static; margin-bottom: 8px; max-width: none; }
 }

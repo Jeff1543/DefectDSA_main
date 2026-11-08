@@ -79,9 +79,11 @@
   margin-top: 40px;
 }
 
+.method-section > * { min-width: 0; }
+
 .method-media {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: auto auto;
   gap: 14px;
 }
@@ -231,4 +233,9 @@
   .method-media {
     order: 2;
   }
+}
+
+@media (max-width: 600px) {
+  .value-grid { grid-template-columns: 1fr; gap: 16px; margin-top: 32px; }
+  .value-card { padding: 24px; }
 }

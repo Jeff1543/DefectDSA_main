@@ -55,11 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ? `${metCount} dari ${a.tests.length} asumsi terpenuhi${manualCount ? ` (${manualCount} dinilai mandiri)` : ""}${a.assumptions_met ? "." : ". Lihat catatan kehati-hatian."}`
     : "Asumsi tidak dapat diuji otomatis.";
   document.getElementById("resBanner").innerHTML =
-    `<span class="check">✓</span> Analisis ${RS.esc(m.code)} selesai. ` +
+    `<span class="check">✓</span><span class="result-banner-text">Analisis ${RS.esc(m.code)} selesai. ` +
     (sigEffects.length
       ? `Efek signifikan terdeteksi pada: ${sigEffects.map((e) => RS.esc(e.effect_label)).join(", ")}.`
       : "Tidak ada efek yang signifikan pada taraf 5%.") +
-    (metText ? ` <span style="font-weight:600; margin-left:6px;">(${metText})</span>` : "");
+    (metText ? ` <span style="font-weight:600; margin-left:6px;">(${metText})</span>` : "") +
+    "</span>";
 
   // ---- Tabel uji ----
   document.getElementById("resTestsTitle").textContent = isReg ? "Hasil Regresi Linier" : `${multivariate ? "Uji Multivariat" : "Uji Univariat"} (${m.code})`;

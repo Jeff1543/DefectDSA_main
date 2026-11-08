@@ -417,6 +417,17 @@ a.choose-card:focus-visible .btn-neutral { background: var(--slate-900); color: 
   .kq-opt input, .kq-opt .kq-dot { width: 40px; height: 40px; }
   .kq-summary dl { grid-template-columns: 1fr; }
   .res-who { grid-template-columns: 1fr; }
+
+  /* Radar: label diperbesar (SVG diskalakan ~0.5x di HP) dan diberi ruang ekstra */
+  .res-radar { margin: 0 -10px; }
+  .res-radar svg { overflow: visible; }
+  .radar-label { font-size: 21px; }
+  .radar-tick { font-size: 15px; }
+  .radar-dot { r: 6; }
+
+  /* Tabel rincian: kolom batang "Capaian" disembunyikan agar muat tanpa geser */
+  .res-table th:nth-child(3), .res-table td:nth-child(3) { display: none; }
+  .res-table th, .res-table td { padding-left: 8px; padding-right: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
