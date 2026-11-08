@@ -23,6 +23,7 @@ import sqlite3
 import threading
 from contextlib import contextmanager
 from pathlib import Path
+from urllib.parse import urlparse
 
 from app.api.core.config import DATA_DIR
 
@@ -32,7 +33,24 @@ DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 # Sebagian penyedia (Heroku/Render lama) memberi skema "postgres://".
 if DATABASE_URL.startswith("postgres://"):
     DATABASE_URL = "postgresql://" + DATABASE_URL[len("postgres://"):]
+
+
+def _require_ssl(url: str) -> str:
+    """Paksa koneksi terenkripsi ke server non-lokal bila URL belum menyebut sslmode."""
+    if not url or "sslmode=" in url:
+        return url
+    host = urlparse(url).hostname or ""
+    if host in ("", "localhost", "127.0.0.1", "::1") or host.startswith("/"):
+        return url
+    return url + ("&" if "?" in url else "?") + "sslmode=require"
+
+
+DATABASE_URL = _require_ssl(DATABASE_URL)
 USE_POSTGRES = bool(DATABASE_URL)
+
+# Vercel/serverless: filesystem read-only dan proses dibekukan antar request,
+# jadi tidak memakai SQLite maupun pool koneksi berumur panjang.
+ON_VERCEL = bool(os.environ.get("VERCEL"))
 
 POOL_MAX_SIZE = int(os.environ.get("DB_POOL_MAX", "5"))
 
@@ -132,6 +150,23 @@ CREATE TABLE IF NOT EXISTS questionnaires (
 CREATE INDEX IF NOT EXISTS idx_analyses_created ON analyses(created_at);
 CREATE INDEX IF NOT EXISTS idx_analyses_user ON analyses(user_id);
 CREATE INDEX IF NOT EXISTS idx_quest_created ON questionnaires(created_at);
+
+-- Keamanan: aplikasi ini konek langsung ke Postgres (role pemilik tabel,
+-- yang tidak terkena RLS). Jadi RLS tanpa policy = semua akses lewat jalur
+-- lain (Supabase Data API / anon key / authenticated) DITOLAK.
+ALTER TABLE users          ENABLE ROW LEVEL SECURITY;
+ALTER TABLE analyses       ENABLE ROW LEVEL SECURITY;
+ALTER TABLE questionnaires ENABLE ROW LEVEL SECURITY;
+
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'anon') THEN
+        REVOKE ALL ON TABLE users, analyses, questionnaires FROM anon;
+    END IF;
+    IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'authenticated') THEN
+        REVOKE ALL ON TABLE users, analyses, questionnaires FROM authenticated;
+    END IF;
+END $$;
 """
 
 # Dipertahankan agar kode lama yang mengimpor SCHEMA tidak rusak.
@@ -273,6 +308,28 @@ def close_pool() -> None:
 
 @contextmanager
 def connect():
+    if ON_VERCEL and not USE_POSTGRES:
+        raise RuntimeError(
+            "DATABASE_URL belum diset di Vercel (Project Settings > Environment "
+            "Variables). SQLite tidak bisa dipakai karena filesystem Vercel read-only."
+        )
+
+    if USE_POSTGRES and ON_VERCEL:
+        import psycopg
+
+        # Satu koneksi per invokasi. Pakai connection string "Transaction pooler"
+        # Supabase (port 6543) agar jumlah koneksi tidak membengkak.
+        raw = psycopg.connect(DATABASE_URL, prepare_threshold=None, connect_timeout=10)
+        try:
+            yield _PgConnection(raw)
+            raw.commit()
+        except Exception:
+            raw.rollback()
+            raise
+        finally:
+            raw.close()
+        return
+
     if USE_POSTGRES:
         # Context manager pool: commit bila sukses, rollback bila error.
         with _get_pool().connection() as raw:

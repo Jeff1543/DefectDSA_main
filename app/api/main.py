@@ -1,3 +1,4 @@
+import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -13,6 +14,7 @@ from app.api.gallery import router as gallery_router
 from app.api.questionnaire import router as questionnaire_router
 from app.api.core.config import STATIC_DIR
 from app.api.core.db import close_pool, init_db
+from app.api.core.security import _secret
 from app.api.services.user_service import ensure_admin
 from app.api.utils.errors import AppError
 
@@ -21,6 +23,10 @@ from app.api.utils.errors import AppError
 async def lifespan(app: FastAPI):
     init_db()
     ensure_admin()
+    try:
+        _secret()  # gagal lebih awal & jelas di log bila APP_SECRET belum diset
+    except RuntimeError as exc:
+        logging.getLogger("uvicorn.error").error("KONFIGURASI: %s", exc)
     yield
     close_pool()
 
@@ -80,6 +86,11 @@ def handle_unexpected_error(
     # Fallback terakhir agar traceback internal tidak pernah
     # ditampilkan langsung ke pengguna, sesuai Functional
     # Specification (FR-09 Error Handling).
+    # Detail error tetap dicatat di log server (Vercel > Logs / Render > Logs)
+    # supaya bisa dilacak tanpa membocorkannya ke pengguna.
+    logging.getLogger("uvicorn.error").error(
+        "Error tak terduga pada %s %s", request.method, request.url.path, exc_info=exc
+    )
     return JSONResponse(
         status_code=500,
         content={

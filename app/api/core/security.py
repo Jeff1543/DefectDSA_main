@@ -31,9 +31,16 @@ def _secret() -> bytes:
     if path.exists():
         return path.read_bytes()
 
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
     key = secrets.token_bytes(32)
-    path.write_bytes(key)
+    try:
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(key)
+    except OSError as exc:
+        raise RuntimeError(
+            "APP_SECRET belum diset dan folder data/ tidak bisa ditulis "
+            "(hosting read-only seperti Vercel). Set APP_SECRET di environment "
+            "variables hosting dengan string acak panjang."
+        ) from exc
     try:
         os.chmod(path, 0o600)
     except OSError:
