@@ -34,28 +34,28 @@ def _eta_word(e):
 class InterpretationService:
     """
     Interpretasi hasil analisis dalam bahasa awam. Menggunakan Generative AI
-    bila ANTHROPIC_API_KEY diset; bila tidak, atau bila gagal, memakai
+    bila GROQ_API_KEY diset; bila tidak, atau bila gagal, memakai
     narasi berbasis aturan yang sama detailnya (FR-09: hasil tetap tampil).
     """
 
-    _ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
-    _ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-5")
+    _GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions"
+    _GROQ_MODEL = os.environ.get("GROQ_MODEL", "llama-3.3-70b-versatile")
     _REQUEST_TIMEOUT_SECONDS = 45
     _MAX_TOKENS = 3000
 
     # ------------------------------------------------------------------
     @staticmethod
     def generate(mancova_result: dict, assumption_result: dict, facts: dict | None = None) -> dict:
-        api_key = os.environ.get("ANTHROPIC_API_KEY")
+        api_key = os.environ.get("GROQ_API_KEY")
 
         if not api_key:
             out = InterpretationService.generate_fallback(mancova_result, assumption_result, facts)
             out["source"] = "fallback_rule_based"
-            out["fallback_reason"] = "ANTHROPIC_API_KEY tidak diset pada environment server."
+            out["fallback_reason"] = "GROQ_API_KEY tidak diset pada environment server."
             return out
 
         try:
-            data = InterpretationService._call_anthropic(mancova_result, assumption_result, facts, api_key)
+            data = InterpretationService._call_groq(mancova_result, assumption_result, facts, api_key)
             out = InterpretationService._normalize(data)
             out["source"] = "generative_ai"
             return out
@@ -132,30 +132,30 @@ DATA:
 """
 
     @staticmethod
-    def _call_anthropic(mancova_result, assumption_result, facts, api_key) -> dict:
+    def _call_groq(mancova_result, assumption_result, facts, api_key) -> dict:
         import httpx
 
         prompt = InterpretationService.build_prompt(mancova_result, assumption_result, facts)
 
         response = httpx.post(
-            InterpretationService._ANTHROPIC_API_URL,
+            InterpretationService._GROQ_API_URL,
             headers={
-                "x-api-key": api_key,
-                "anthropic-version": "2023-06-01",
-                "content-type": "application/json",
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
             },
             json={
-                "model": InterpretationService._ANTHROPIC_MODEL,
+                "model": InterpretationService._GROQ_MODEL,
                 "max_tokens": InterpretationService._MAX_TOKENS,
+                "temperature": 0.3,
+                "response_format": {"type": "json_object"},
                 "messages": [{"role": "user", "content": prompt}],
             },
             timeout=InterpretationService._REQUEST_TIMEOUT_SECONDS,
         )
         response.raise_for_status()
 
-        text = "\n".join(
-            b["text"] for b in response.json().get("content", []) if b.get("type") == "text"
-        ).strip()
+        choices = response.json().get("choices") or []
+        text = ((choices[0].get("message") or {}).get("content") or "").strip() if choices else ""
         if not text:
             raise ValueError("Respons Generative AI tidak memuat teks.")
 

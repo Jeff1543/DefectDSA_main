@@ -19,7 +19,7 @@ for suffix in ("", "-wal", "-shm"):
 os.environ["APP_DB_PATH"] = str(db)
 os.environ["ADMIN_EMAIL"] = "admin@test.local"
 os.environ["ADMIN_PASSWORD"] = "TestAdmin123"
-os.environ.pop("ANTHROPIC_API_KEY", None)
+os.environ.pop("GROQ_API_KEY", None)
 
 sys.path.insert(0, str(ROOT))
 import uvicorn  # noqa: E402

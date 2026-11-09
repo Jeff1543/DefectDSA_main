@@ -73,9 +73,9 @@ Daftar dependency final terdapat pada `requirements.txt`.
 
 ### Generative AI
 
-- Provider: Anthropic (Claude), dipanggil langsung lewat REST API menggunakan `httpx` (tanpa SDK tambahan).
-- Diaktifkan dengan mengeset environment variable `ANTHROPIC_API_KEY`.
-- Apabila `ANTHROPIC_API_KEY` tidak diset, atau pemanggilan API gagal, sistem otomatis memakai narasi interpretasi fallback berbasis aturan (_rule-based_), sehingga hasil MANCOVA tetap dapat ditampilkan.
+- Provider: Groq (model Llama, API kompatibel OpenAI), dipanggil langsung lewat REST API menggunakan `httpx` (tanpa SDK tambahan).
+- Diaktifkan dengan mengeset environment variable `GROQ_API_KEY`.
+- Apabila `GROQ_API_KEY` tidak diset, atau pemanggilan API gagal, sistem otomatis memakai narasi interpretasi fallback berbasis aturan (_rule-based_), sehingga hasil MANCOVA tetap dapat ditampilkan.
 
 ### Infrastructure
 
@@ -144,7 +144,7 @@ Berisi validasi struktur variabel, pengujian asumsi (linieritas, normalitas, Box
 
 ### `app/api/services/interpretation_service.py`
 
-Berisi pemanggilan Generative AI (Anthropic API) beserta narasi _fallback_ berbasis aturan.
+Berisi pemanggilan Generative AI (Groq API) beserta narasi _fallback_ berbasis aturan.
 
 ### `app/api/utils/errors.py`
 
@@ -340,18 +340,18 @@ source .venv/bin/activate
 
 | Variable            | Wajib | Keterangan                                                                                                                                                                           |
 | ------------------- | ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ANTHROPIC_API_KEY` | Tidak | Apabila diset, `/api/analyze` memanggil Generative AI (Claude) sungguhan untuk narasi _AI Insights_. Apabila tidak diset, sistem otomatis memakai narasi _fallback_ berbasis aturan. |
+| `GROQ_API_KEY` | Tidak | Apabila diset, `/api/analyze` memanggil Generative AI (Groq) sungguhan untuk narasi _AI Insights_. Apabila tidak diset, sistem otomatis memakai narasi _fallback_ berbasis aturan. |
 
 Linux/macOS:
 
 ```bash
-export ANTHROPIC_API_KEY="sk-ant-..."
+export GROQ_API_KEY="gsk_..."
 ```
 
 Windows (PowerShell):
 
 ```powershell
-$env:ANTHROPIC_API_KEY = "sk-ant-..."
+$env:GROQ_API_KEY = "gsk_..."
 ```
 
 ### Install Dependencies
@@ -696,7 +696,7 @@ Tabel, kolom, dan contoh query ada di `docs/DATABASE.md`. Jangan commit folder `
 - **Galeri Dokumentasi** (`/static/dokumentasi.html`): letakkan foto (.jpg/.png/.webp) di `static/img/dokumentasi/`. Urutan mengikuti nama file (`01-...`, `02-...`). Keterangan opsional lewat `static/img/dokumentasi/captions.json`, mis. `{"01-pembukaan.jpg": "Pembukaan kegiatan"}`. Tanpa foto, halaman menampilkan kerangka kosong. Disarankan sisi terpanjang 1600-2400 px dan di bawah 1 MB per foto.
 - **Panduan penggunaan** pindah ke `/static/panduan.html`.
 - **Uji asumsi** menampilkan hipotesis, keputusan H0, grafik, saran perbaikan, dan transformasi data (log, log(x+1), akar kuadrat, kebalikan, kuadrat, Box-Cox).
-- **Interpretasi**: bila `ANTHROPIC_API_KEY` diset, penjelasan ditulis oleh model AI (`ANTHROPIC_MODEL` untuk mengganti model) dengan prompt rinci berbahasa awam; bila tidak diset atau gagal, sistem memakai penjelasan otomatis yang sama detailnya dari data sebenarnya.
+- **Interpretasi**: bila `GROQ_API_KEY` diset, penjelasan ditulis oleh model AI (`GROQ_MODEL` untuk mengganti model) dengan prompt rinci berbahasa awam; bila tidak diset atau gagal, sistem memakai penjelasan otomatis yang sama detailnya dari data sebenarnya.
 
 ### Menjalankan tes otomatis
 
