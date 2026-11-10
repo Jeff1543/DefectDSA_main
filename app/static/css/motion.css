@@ -1,0 +1,128 @@
+/* ==========================================================================
+   Motion — sistem animasi seluruh situs. Dipasang otomatis oleh js/motion.js
+   ke semua halaman. Dimatikan bila pengguna memilih "kurangi gerakan".
+   ========================================================================== */
+@keyframes mo-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes mo-fade-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes mo-drop { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+@keyframes mo-pop { 0% { transform: scale(1); } 40% { transform: scale(1.04); } 100% { transform: scale(1); } }
+@keyframes mo-ring { 0% { box-shadow: 0 0 0 0 rgba(46,46,55,.35); } 100% { box-shadow: 0 0 0 18px rgba(46,46,55,0); } }
+@keyframes mo-step-pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(46,46,55,.28); } 50% { box-shadow: 0 0 0 9px rgba(46,46,55,0); } }
+@keyframes mo-line-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes mo-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes mo-arrow { 0%,100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
+@keyframes mo-shine { from { transform: translateX(-120%); } to { transform: translateX(120%); } }
+@keyframes mo-word { from { opacity: 0; transform: translateY(.7em) rotate(3deg); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes mo-ripple { to { transform: scale(4); opacity: 0; } }
+@keyframes mo-blob-a { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(8vw,6vh) scale(1.15); } 66% { transform: translate(-4vw,12vh) scale(.92); } }
+@keyframes mo-blob-b { 0%,100% { transform: translate(0,0) scale(1); } 40% { transform: translate(-9vw,-7vh) scale(1.1); } 75% { transform: translate(5vw,-3vh) scale(.95); } }
+@keyframes mo-blob-c { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(6vw,-10vh) scale(1.2); } }
+@keyframes mo-wiggle { 0%,100% { rotate: 0deg; } 25% { rotate: -9deg; } 75% { rotate: 9deg; } }
+@keyframes mo-spin-slow { to { transform: rotate(360deg); } }
+@keyframes mo-gradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+
+/* ---- Latar hidup: gumpalan warna melayang + sorotan kursor ---- */
+.mo-bg { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+.mo-blob { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; will-change: transform; }
+.mo-blob.a { width: 46vw; height: 46vw; left: -12vw; top: -10vw; background: radial-gradient(circle, #cfe0dc 0%, rgba(207,224,220,0) 70%); animation: mo-blob-a 22s ease-in-out infinite; }
+.mo-blob.b { width: 40vw; height: 40vw; right: -10vw; top: 25vh; background: radial-gradient(circle, #e3d6e6 0%, rgba(227,214,230,0) 70%); animation: mo-blob-b 26s ease-in-out infinite; }
+.mo-blob.c { width: 34vw; height: 34vw; left: 25vw; bottom: -14vw; background: radial-gradient(circle, #f0e3cf 0%, rgba(240,227,207,0) 70%); animation: mo-blob-c 30s ease-in-out infinite; }
+.mo-spot { position: absolute; left: 0; top: 0; width: 480px; height: 480px; margin: -240px 0 0 -240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(120,150,150,.20) 0%, rgba(120,150,150,0) 65%); opacity: 0; transition: opacity .4s ease; will-change: transform; }
+.mo-spot.on { opacity: 1; }
+
+/* ---- Bar progres scroll ---- */
+.mo-progress { position: fixed; left: 0; top: 0; height: 3px; width: 100%; z-index: 9999; transform-origin: left; transform: scaleX(0);
+  background: linear-gradient(90deg, #78767c, #6fa39b, #b08fc0, #78767c); background-size: 200% 100%; animation: mo-gradient 4s linear infinite; pointer-events: none; }
+
+/* ---- Muncul saat halaman dibuka ---- */
+body { animation: mo-fade-in .4s ease; }
+.navbar-wrap { animation: mo-drop .6s cubic-bezier(.2,.7,.2,1) backwards; }
+#researchStepper { animation: mo-fade-up .5s .1s ease backwards; }
+.step-indicator .step { animation: mo-fade-up .45s ease backwards; }
+.step-indicator .step:nth-of-type(2) { animation-delay: .06s; } .step-indicator .step:nth-of-type(3) { animation-delay: .12s; }
+.step-indicator .step:nth-of-type(4) { animation-delay: .18s; } .step-indicator .step:nth-of-type(5) { animation-delay: .24s; }
+.step-indicator .step:nth-of-type(6) { animation-delay: .3s; }  .step-indicator .step:nth-of-type(7) { animation-delay: .36s; }
+.step-indicator .step-line { transform-origin: left center; animation: mo-line-grow .6s .25s ease backwards; }
+.step-indicator .step.active .step-circle { animation: mo-step-pulse 2.2s .8s ease-in-out infinite; }
+
+/* ---- Muncul saat di-scroll (diatur motion.js) ---- */
+.mo-reveal { opacity: 0; transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease; will-change: opacity, transform; }
+.mo-reveal[data-mo="up"]    { transform: translateY(34px); }
+.mo-reveal[data-mo="left"]  { transform: translateX(-46px); }
+.mo-reveal[data-mo="right"] { transform: translateX(46px); }
+.mo-reveal[data-mo="zoom"]  { transform: scale(.88); }
+.mo-reveal[data-mo="blur"]  { transform: translateY(18px); filter: blur(8px); }
+.mo-reveal.mo-in { opacity: 1; transform: none; filter: none; }
+
+/* ---- Judul: kata muncul satu-satu ---- */
+.mo-word { display: inline-block; animation: mo-word .7s cubic-bezier(.2,.7,.2,1) backwards; }
+
+/* ---- Kartu: hover, tilt, pilih ---- */
+.value-card, .ft-card, .who-card, .contact-card, .choose-card, .pick-card, .stat-block, .doc-note, .faq-item, .how-step {
+  transition: transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .2s ease, background .2s ease;
+}
+.value-card:hover, .ft-card:hover, .who-card:hover, .contact-card:hover, .choose-card:hover, .pick-card:hover, .stat-block:hover {
+  transform: translateY(-7px); box-shadow: 0 22px 46px rgba(46,46,55,.14);
+}
+.pick-card:active, .choose-card:active { transform: translateY(-2px) scale(.99); }
+.pick-card.selected { animation: mo-pop .4s ease, mo-ring .7s ease-out; }
+.pick-card.selected .pick-code { animation: mo-float 2.4s ease-in-out infinite; display: inline-block; }
+.pick-card .pick-tag { transition: background .2s ease, color .2s ease; }
+.faq-item { transition: background .25s ease, box-shadow .25s ease; }
+.faq-item:hover { box-shadow: 0 8px 22px rgba(46,46,55,.08); }
+
+/* ---- Ikon hidup ---- */
+.icon-circle { animation: mo-float 4.5s ease-in-out infinite; animation-delay: var(--mo-d, 0s); transition: scale .3s ease, rotate .3s ease, background .2s ease; }
+.value-card:hover .icon-circle, .ft-card:hover .icon-circle, .choose-card:hover .icon-circle,
+.contact-card:hover .icon-circle, .how-step:hover .icon-circle, .who-card:hover .icon-circle { scale: 1.15; animation: mo-float 4.5s ease-in-out infinite, mo-wiggle .6s ease; }
+.nav-logo-mark { transition: rotate .5s cubic-bezier(.2,.7,.2,1), scale .3s ease; }
+.nav-logo:hover .nav-logo-mark { rotate: 360deg; scale: 1.12; }
+.floating-tag { animation: mo-float 3.6s ease-in-out infinite; }
+.spinner { animation-timing-function: linear; }
+
+.choose-card .btn svg, .ft-link svg { transition: transform .25s ease; }
+.choose-card:hover .btn svg, .ft-link:hover svg { animation: mo-arrow .9s ease-in-out infinite; }
+.chip { transition: transform .2s ease, background .2s ease; }
+.choose-card:hover .chip { transform: translateY(-3px); }
+.how-arrow { display: inline-flex; animation: mo-arrow 1.8s ease-in-out infinite; }
+
+/* ---- Navbar ---- */
+.nav-links a { transition: transform .2s ease, background .2s ease, color .2s ease; }
+.nav-links a:hover { transform: translateY(-2px); }
+.mo-scrolled .navbar { box-shadow: 0 10px 30px rgba(46,46,55,.10); }
+.navbar { transition: box-shadow .3s ease; }
+
+/* ---- Tombol ---- */
+.btn, .submit-btn, .register-btn { position: relative; overflow: hidden; transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease, opacity .2s ease; }
+.btn:not(:disabled):hover, .submit-btn:not(:disabled):hover, .register-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(46,46,55,.2); }
+.btn:not(:disabled):active, .submit-btn:not(:disabled):active, .register-btn:not(:disabled):active { transform: translateY(0) scale(.97); }
+.btn-primary:not(:disabled)::after, .submit-btn:not(:disabled)::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,.28) 50%, transparent 70%); transform: translateX(-120%);
+}
+.btn-primary:not(:disabled):hover::after, .submit-btn:not(:disabled):hover::after { animation: mo-shine .8s ease; }
+.btn-link { transition: transform .2s ease, opacity .2s ease; display: inline-block; }
+.btn-link:hover { transform: translateX(-4px); }
+.mo-ripple { position: absolute; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: rgba(255,255,255,.45); pointer-events: none; animation: mo-ripple .65s ease-out forwards; }
+.btn-secondary .mo-ripple, .btn-neutral .mo-ripple { background: rgba(46,46,55,.18); }
+
+/* ---- Form ---- */
+input, textarea, select { transition: border-color .2s ease, box-shadow .25s ease, transform .2s ease; }
+input:focus, textarea:focus, select:focus { box-shadow: 0 0 0 4px rgba(120,150,150,.22); }
+.notice { animation: mo-fade-up .5s ease backwards; }
+
+/* ---- Tabel & daftar ---- */
+tbody tr { transition: background .2s ease, transform .2s ease; }
+tbody tr:hover { background: rgba(120,150,150,.10); }
+
+/* ---- Pindah halaman ---- */
+body.mo-leaving { opacity: 0; transform: translateY(-10px) scale(.995); transition: opacity .22s ease, transform .22s ease; pointer-events: none; }
+
+@media (max-width: 700px) { .mo-blob { filter: blur(50px); } .mo-spot { display: none; } }
+@media print { .mo-bg, .mo-progress { display: none !important; } .mo-reveal { opacity: 1 !important; transform: none !important; filter: none !important; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .mo-reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+  .mo-bg, .mo-progress { display: none; }
+}

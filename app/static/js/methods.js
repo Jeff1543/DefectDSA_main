@@ -1,6 +1,6 @@
 // ==========================================================================
 // Research — Pilih Uji: pengguna memilih ANOVA / ANCOVA / MANOVA / MANCOVA /
-// Regresi Linier lebih dulu. Variabel dipilih di langkah berikutnya sesuai
+// Regresi Linier lebih dulu. Mengklik kartu uji langsung membuka langkah berikutnya, tempat variabel dipilih sesuai
 // syarat uji yang dipilih (lihat RS.METHODS di research-state.js).
 // ==========================================================================
 
@@ -49,20 +49,28 @@ document.addEventListener("DOMContentLoaded", () => {
     nextBtn.disabled = !chosen;
   }
 
-  grid.addEventListener("click", (ev) => {
-    const card = ev.target.closest(".pick-card");
-    if (!card) return;
-    chosen = card.dataset.method;
-    paint();
-  });
-  paint();
-
-  nextBtn.addEventListener("click", () => {
-    if (!chosen) return;
+  let going = false;
+  function proceed() {
+    if (!chosen || going) return;
+    going = true;
     if (chosen !== st.method) {
       // Uji berganti: syarat variabelnya berbeda, jadi pilihan & hasil lama dibuang.
       RS.save({ method: chosen, selection: null, result: null, resultKey: null });
     }
-    window.location.href = "research-variables.html";
+    const url = "research-variables.html";
+    if (window.MO) window.MO.go(url);
+    else window.location.href = url;
+  }
+
+  // Klik kartu metode langsung lanjut ke halaman pilih variabel.
+  grid.addEventListener("click", (ev) => {
+    const card = ev.target.closest(".pick-card");
+    if (!card || going) return;
+    chosen = card.dataset.method;
+    paint();
+    setTimeout(proceed, 380); // beri waktu animasi "terpilih" terlihat
   });
+  paint();
+
+  nextBtn.addEventListener("click", proceed);
 });
