@@ -896,3 +896,11 @@
   .result-actions { flex-direction: column-reverse; align-items: stretch; }
   .result-actions .btn { width: 100%; }
 }
+
+/* ---- Validasi: ubah tipe kolom ---- */
+.type-hint { margin: 4px 0 12px; font-size: .9rem; color: var(--slate-500); }
+.type-select { font: inherit; font-size: .88rem; font-weight: 600; padding: 6px 28px 6px 12px; border-radius: 9999px; border: 1px solid var(--gray-200); background-color: var(--surface-icon); color: var(--slate-900); cursor: pointer; }
+.type-select:hover { border-color: var(--slate-400); }
+.type-select:disabled { opacity: .55; cursor: progress; }
+.type-msg { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; font-size: .9rem; background: #eaf4ef; color: #1f5d45; }
+.type-msg.err { background: #fbeaea; color: #8a2b2b; }

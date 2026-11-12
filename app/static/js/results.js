@@ -1,8 +1,12 @@
 // ==========================================================================
-// Research — Hasil Analisis: menampilkan hasil nyata dari /api/analyze
+// Research — Hasil Analisis (langkah 6) & AI Insights (langkah 7): menampilkan hasil nyata dari /api/analyze
 // ==========================================================================
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Skrip ini dipakai dua halaman: Hasil Analisis (langkah 6) dan AI Insights (langkah 7).
+  // Tiap bagian hanya dirender bila elemennya ada di halaman yang sedang dibuka.
+  const $ = (id) => document.getElementById(id);
+  const withLast = location.search.includes("last=1") ? "?last=1" : "";
   const params = new URLSearchParams(location.search);
   const st = RS.load();
   const last = RS.getLast();
@@ -37,11 +41,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const TYPE_LABEL = { factor: "Faktor", covariate: isReg ? "Prediktor" : "Kovariat", interaction: "Interaksi", intercept: "Intercept" };
 
   // ---- Catatan sumber hasil ----
-  const note = document.getElementById("resSavedNote");
-  if (fromLast && last) {
+  const note = $("resSavedNote");
+  if (note && fromLast && last) {
     note.textContent = `Menampilkan hasil analisis tersimpan di browser ini (${RS.fmtDate(last.savedAt)}).`;
     note.hidden = false;
-  } else if (result.analysis_id) {
+  } else if (note && result.analysis_id) {
     note.textContent = `Analisis ini tercatat sebagai #${result.analysis_id} pada ${RS.fmtDate(result.created_at)}.`;
     note.hidden = false;
   }
@@ -52,9 +56,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const metText = isReg
     ? ""
     : a.tests.length
-    ? `${metCount} dari ${a.tests.length} asumsi terpenuhi${manualCount ? ` (${manualCount} dinilai mandiri)` : ""}${a.assumptions_met ? "." : ". Lihat catatan kehati-hatian."}`
+    ? `${metCount} dari ${a.tests.filter((t) => t.status === "met" || t.status === "not_met").length} asumsi yang dapat diuji terpenuhi${manualCount ? ` (${manualCount} dinilai mandiri / tidak dapat diuji)` : ""}${a.assumptions_met ? "." : ". Lihat catatan kehati-hatian."}`
     : "Asumsi tidak dapat diuji otomatis.";
-  document.getElementById("resBanner").innerHTML =
+  if ($("resBanner")) $("resBanner").innerHTML =
     `<span class="check">✓</span><span class="result-banner-text">Analisis ${RS.esc(m.code)} selesai. ` +
     (sigEffects.length
       ? `Efek signifikan terdeteksi pada: ${sigEffects.map((e) => RS.esc(e.effect_label)).join(", ")}.`
@@ -63,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "</span>";
 
   // ---- Tabel uji ----
-  document.getElementById("resTestsTitle").textContent = isReg ? "Hasil Regresi Linier" : `${multivariate ? "Uji Multivariat" : "Uji Univariat"} (${m.code})`;
+  if ($("resTestsTitle")) $("resTestsTitle").textContent = isReg ? "Hasil Regresi Linier" : `${multivariate ? "Uji Multivariat" : "Uji Univariat"} (${m.code})`;
 
   const groups = [];
   tests.forEach((t) => {
@@ -98,7 +102,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const main = groups.filter((g) => g.type !== "intercept");
   const intercept = groups.find((g) => g.type === "intercept");
 
-  document.getElementById("resTests").innerHTML =
+  if ($("resTests")) $("resTests").innerHTML =
     (isReg ? RS.regressionHtml(result.mancova.regression) : "") +
     main
       .map(
@@ -116,12 +120,12 @@ document.addEventListener("DOMContentLoaded", () => {
       : "");
 
   // ---- Wawasan ----
-  document.getElementById("resInsight").innerHTML = Insight.render(result);
+  if ($("resInsight")) $("resInsight").innerHTML = Insight.render(result);
 
   // ---- Variabel ----
   const v = result.variables;
   const list = (arr) => (arr.length ? arr.map(RS.esc).join(", ") : "–");
-  document.getElementById("resVars").innerHTML = `
+  if ($("resVars")) $("resVars").innerHTML = `
     <div><dt>File</dt><dd>${RS.esc(result.dataset.filename)} (${result.dataset.n_rows.toLocaleString("id-ID")} baris)</dd></div>
     <div><dt>Dependen (Y)</dt><dd>${list(v.dependent)}</dd></div>
     <div><dt>Independen (X)</dt><dd>${list(v.independent)}</dd></div>
@@ -132,11 +136,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const fmtArea = (n) => RS.fmtNum(n, 2);
 
   const risk = result.dashboard.defect_risk_map || [];
-  document.getElementById("resRisk").innerHTML = risk.length ? Charts.riskPanel(risk) : '<p class="res-note">Tidak ada data.</p>';
+  if ($("resRisk")) $("resRisk").innerHTML = risk.length ? Charts.riskPanel(risk) : '<p class="res-note">Tidak ada data.</p>';
 
   const alt = result.dashboard.defect_by_altitude || [];
   const maxAlt = Math.max(...alt.map((r) => r.mean_area_cm2), 0.0001);
-  document.getElementById("resAlt").innerHTML = alt.length
+  if ($("resAlt")) $("resAlt").innerHTML = alt.length
     ? alt
         .map(
           (r) => `<div class="risk-row">
@@ -148,7 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("")
     : '<p class="res-note">Grafik ini tampil bila salah satu variabel independen bernama mengandung kata "ketinggian" atau "altitude".</p>';
 
-  if (fromLast) document.getElementById("repLink").href = "laporan.html?last=1";
-  document.getElementById("printBtn").addEventListener("click", () => window.print());
+  if ($("repLink") && fromLast) $("repLink").href = "laporan.html?last=1";
+  if ($("insLink")) $("insLink").href = "research-insights.html" + withLast;
+  if ($("backLink") && /research-insights/.test(location.pathname)) $("backLink").href = "research-results.html" + withLast;
+  if ($("printBtn")) $("printBtn").addEventListener("click", () => window.print());
   document.getElementById("resContent").hidden = false;
 });

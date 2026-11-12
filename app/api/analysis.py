@@ -4,10 +4,12 @@ from app.api.deps import get_current_user_optional
 from app.api.schemas.analysis import (
     AnalyzeRequest,
     CleanRequest,
+    ConvertTypeRequest,
     DescriptiveRequest,
 )
 from app.api.services.file_service import (
     get_dataset,
+    convert_column_type,
     get_filename,
     is_cleaned,
     upload_dataset,
@@ -72,6 +74,21 @@ def clean(request: CleanRequest):
     return {
         "success": True,
         **result,
+    }
+
+
+@router.post("/convert-type")
+def convert_type(request: ConvertTypeRequest):
+
+    profile = convert_column_type(
+        dataset_id=request.dataset_id,
+        column=request.column,
+        to=request.to,
+    )
+
+    return {
+        "success": True,
+        "profile": profile,
     }
 
 

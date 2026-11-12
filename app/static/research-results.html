@@ -31,7 +31,7 @@
 
 <div class="container" style="padding-top:24px;">
 
-  <div id="researchStepper" data-active="7"></div>
+  <div id="researchStepper" data-active="6"></div>
 
   <div id="resEmpty" hidden class="card" style="text-align:center;padding:48px 24px;margin-bottom:48px;">
     <h2 style="margin-bottom:8px;">Belum ada hasil analisis</h2>
@@ -42,12 +42,6 @@
   <div id="resContent" hidden>
     <div class="notice" id="resSavedNote" hidden style="margin-bottom:16px;"></div>
     <div class="result-banner" id="resBanner"></div>
-
-    <div class="card" style="margin-bottom:24px;">
-      <h3 style="font-size:1.25rem; margin-bottom:4px;">Wawasan &amp; Interpretasi</h3>
-      <p style="color:var(--slate-500); font-size:0.9rem; margin-bottom:18px;">Penjelasan hasil dalam bahasa sehari-hari, lengkap dengan grafik yang mendukung.</p>
-      <div id="resInsight"></div>
-    </div>
 
     <div class="card" style="margin-bottom:24px;">
       <div class="result-card-head">
@@ -68,10 +62,9 @@
     </div>
 
     <div class="result-actions" style="padding-bottom:64px;">
-      <a href="research-upload.html" class="btn-link" style="text-decoration:underline;">Jalankan Analisis Baru</a>
+      <a href="research-assumptions.html" class="btn-link" id="backLink">← Kembali ke Uji Asumsi</a>
       <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="laporan.html" class="btn btn-secondary" id="repLink">Buka Laporan Lengkap</a>
-        <button type="button" class="btn btn-primary" id="printBtn">⬇ Cetak / Simpan PDF</button>
+        <a href="research-insights.html" class="btn btn-primary" id="insLink">Lanjut ke AI Insights →</a>
       </div>
     </div>
   </div>

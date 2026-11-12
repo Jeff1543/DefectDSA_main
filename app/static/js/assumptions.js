@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const seg = (n, cls) => (n ? `<span class="${cls}" style="width:${(n / total) * 100}%"></span>` : "");
 
     const headline = bad.length
-      ? "Ada asumsi yang belum terpenuhi"
+      ? "Asumsi yang terpenuhi"
       : met.length === 0
       ? "Belum ada asumsi yang dapat diuji otomatis"
       : "Semua asumsi yang dapat diuji terpenuhi";
@@ -246,8 +246,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("asSide").innerHTML = `
       <div class="as-sum ${bad.length ? "warn" : ""}">
         <h4>${headline}</h4>
-        <div class="big">${met.length} / ${total}</div>
-        <p>asumsi terpenuhi (dari seluruh asumsi di daftar kiri)</p>
+        <div class="big">${met.length} / ${met.length + bad.length}</div>
+        <p>asumsi terpenuhi (dari yang dapat diuji otomatis${manual.length + na.length ? `; ${manual.length + na.length} lainnya dinilai mandiri / tidak dapat diuji` : ""})</p>
         <div class="as-bar" aria-hidden="true">${seg(met.length, "b-met")}${seg(bad.length, "b-bad")}${seg(manual.length + na.length, "b-man")}</div>
         <ul class="as-counts">
           <li><span>Terpenuhi</span><b>${met.length}</b></li>

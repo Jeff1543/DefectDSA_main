@@ -601,3 +601,75 @@ def mark_cleaned(dataset_id: str):
         raise FileError("Dataset tidak ditemukan.")
 
     _DATASETS[dataset_id]["cleaned"] = True
+
+
+def _format_number_as_text(value) -> str:
+    """Angka -> teks kategori: 1.0 menjadi "1", 2.5 tetap "2.5"."""
+
+    number = float(value)
+    return str(int(number)) if number.is_integer() else repr(number)
+
+
+def convert_column_type(dataset_id: str, column: str, to: str) -> dict:
+    """
+    Mengubah tipe satu kolom (numerik <-> kategorik) pada dataset di memori,
+    lalu mengembalikan profil terbaru. Bila ada nilai yang tidak bisa diubah,
+    kolom dibiarkan apa adanya dan pengguna diberi tahu nilai yang bermasalah.
+    """
+
+    if to not in {"numeric", "categorical"}:
+        raise FileError("Tipe tujuan harus 'numeric' atau 'categorical'.")
+
+    df = get_dataset(dataset_id)
+
+    if column not in df.columns:
+        raise FileError(f"Kolom '{column}' tidak ditemukan pada dataset.")
+
+    series = df[column]
+    is_numeric = pd.api.types.is_numeric_dtype(series)
+
+    if (to == "numeric") == is_numeric:
+        return profile_dataset(df)  # sudah bertipe itu
+
+    if to == "categorical":
+        converted = pd.Series(
+            [None if pd.isna(v) else _format_number_as_text(v) for v in series],
+            index=series.index,
+            dtype="object",
+        )
+    else:
+        values, bad = [], []
+
+        for v in series:
+            if pd.isna(v):
+                values.append(None)
+                continue
+
+            text = str(v).strip()
+
+            if _NUMBER.match(text):
+                values.append(float(text.replace(",", ".")))
+            else:
+                values.append(None)
+                bad.append(text)
+
+        if bad:
+            examples = ", ".join(f"'{b}'" for b in list(dict.fromkeys(bad))[:5])
+            raise FileError(
+                f"Kolom '{column}' tidak dapat dijadikan numerik karena berisi "
+                f"{len(bad)} nilai yang bukan angka, mis. {examples}. "
+                "Perbaiki nilai tersebut di file lalu unggah ulang, atau biarkan kolom ini kategorik."
+            )
+
+        converted = pd.to_numeric(
+            pd.Series(values, index=series.index, dtype="object"), errors="coerce"
+        )
+
+    new_df = df.copy()
+    new_df[column] = converted
+
+    _DATASETS[dataset_id]["data"] = new_df
+    # Tipe berubah, jadi pembersihan data harus diulang pada langkah berikutnya.
+    _DATASETS[dataset_id]["cleaned"] = False
+
+    return profile_dataset(new_df)

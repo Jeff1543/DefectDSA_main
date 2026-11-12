@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
     title.textContent = "Ditemukan Data Kosong";
     sub.innerHTML = `File <strong>${fname}</strong> memiliki ${totalMissing.toLocaleString("id-ID")} sel kosong. Pilih cara penanganannya di bawah ini.`;
     document.getElementById("cleanPanel").hidden = false;
-    document.getElementById("colDetails").open = true;
   }
 
   // Beri tahu pengguna bila sistem otomatis melewati baris judul/keterangan
@@ -56,16 +55,57 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  document.getElementById("colTable").innerHTML = profile.columns
-    .map(
-      (c) => `<tr>
+  // Tabel kolom: tipe bisa diubah (numerik <-> kategorik) lewat dropdown.
+  const colTable = document.getElementById("colTable");
+  const typeMsg = document.getElementById("typeMsg");
+
+  function renderColumns() {
+    colTable.innerHTML = profile.columns
+      .map(
+        (c) => `<tr>
         <td><strong>${RS.esc(c.name)}</strong></td>
-        <td><span class="type-tag">${c.dtype === "numeric" ? "Numerik" : "Kategorik"}</span></td>
+        <td><select class="type-select" data-col="${RS.esc(c.name)}" aria-label="Tipe kolom ${RS.esc(c.name)}">
+          <option value="numeric"${c.dtype === "numeric" ? " selected" : ""}>Numerik</option>
+          <option value="categorical"${c.dtype === "numeric" ? "" : " selected"}>Kategorik</option>
+        </select></td>
         <td>${c.unique_count}</td>
         <td>${c.missing_count ? `${c.missing_count} (${c.missing_percentage}%)` : "0"}</td>
       </tr>`
-    )
-    .join("");
+      )
+      .join("");
+  }
+  renderColumns();
+  document.getElementById("colDetails").open = true;
+
+  function setTypeMsg(html, kind) {
+    typeMsg.innerHTML = html;
+    typeMsg.className = "type-msg" + (kind ? " " + kind : "");
+    typeMsg.hidden = !html;
+  }
+
+  colTable.addEventListener("change", async (ev) => {
+    const sel = ev.target.closest(".type-select");
+    if (!sel) return;
+    const name = sel.dataset.col;
+    const to = sel.value;
+    const prev = profile.columns.find((c) => c.name === name);
+    sel.disabled = true;
+    setTypeMsg("");
+    try {
+      const res = await Api.post("/api/convert-type", { dataset_id: st.datasetId, column: name, to });
+      profile.columns = res.profile.columns;
+      // Tipe berubah: pilihan variabel & hasil lama tidak berlaku lagi.
+      RS.save({ profile: Object.assign({}, st.profile, res.profile), cleaned: false, selection: null, result: null, resultKey: null });
+      renderColumns();
+      setTypeMsg(`Kolom <strong>${RS.esc(name)}</strong> sekarang bertipe <strong>${to === "numeric" ? "Numerik" : "Kategorik"}</strong>.`, "ok");
+    } catch (err) {
+      sel.value = prev ? prev.dtype : sel.value; // kembalikan pilihan
+      const expired = /sesi dataset|tidak ditemukan/i.test(err.message);
+      setTypeMsg(RS.esc(err.message) + (expired ? ' <a href="research-upload.html">Unggah ulang file</a>.' : ""), "err");
+    } finally {
+      sel.disabled = false;
+    }
+  });
 
   card.hidden = false;
 

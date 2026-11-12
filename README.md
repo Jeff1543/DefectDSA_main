@@ -120,7 +120,7 @@ Berisi konfigurasi aplikasi FastAPI, exception handler global, penyajian file st
 
 ### `app/api/analysis.py`
 
-Berisi seluruh endpoint API (`/api/health`, `/api/upload`, `/api/clean`, `/api/analyze`), merangkai pemanggilan service-service di bawah.
+Berisi seluruh endpoint API (`/api/health`, `/api/upload`, `/api/clean`, `/api/convert-type`, `/api/analyze`), merangkai pemanggilan service-service di bawah.
 
 ### `app/api/core/config.py`
 
@@ -239,6 +239,10 @@ Mengecek status backend.
 ### `POST /api/upload`
 
 Menerima dataset CSV/XLSX, mengembalikan `dataset_id` beserta hasil _data profiling_ (preview, jumlah baris/kolom, deteksi _missing value_).
+
+### `POST /api/convert-type`
+
+Mengubah tipe satu kolom (`numeric` ↔ `categorical`) pada dataset yang sedang diproses, dipakai halaman Validasi Data. Body: `{"dataset_id": "...", "column": "Nama Kolom", "to": "numeric" | "categorical"}`. Respons: `{"success": true, "profile": {...}}` (profil kolom terbaru). Konversi ke numerik ditolak (HTTP 400) bila kolom berisi nilai yang bukan angka; konversi ke kategorik mengubah angka menjadi teks (`1.0` → `"1"`). Setelah tipe berubah, dataset ditandai belum bersih sehingga langkah `/api/clean` harus dijalankan lagi.
 
 ### `POST /api/clean`
 

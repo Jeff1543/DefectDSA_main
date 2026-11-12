@@ -158,7 +158,7 @@
         <div>
           <div class="rep-flags">
             <span class="pill-sig">${esc(m.code)}</span>
-            ${a.tests.length ? `<span class="${a.assumptions_met ? "pill-sig" : "pill-ns"}">${a.tests.filter((t) => t.status === "met").length}/${a.tests.length} asumsi terpenuhi</span>` : ""}
+            ${a.tests.length ? `<span class="${a.assumptions_met ? "pill-sig" : "pill-ns"}">${a.tests.filter((t) => t.status === "met").length}/${a.tests.filter((t) => t.status === "met" || t.status === "not_met").length} asumsi terpenuhi</span>` : ""}
           </div>
           <p>${esc(ai.narrative || "")}</p>
           ${ai.assumption_caveat ? `<p style="color:#8a3329;font-size:0.9rem;margin-top:8px;"><strong>Catatan:</strong> ${esc(ai.assumption_caveat)}</p>` : ""}

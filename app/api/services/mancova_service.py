@@ -414,12 +414,7 @@ class MancovaService:
                 "status": "not_evaluated",
                 "statistic": None,
                 "p_value": None,
-                "detail": (
-                    "Model interaksi kovariat x variabel independen "
-                    f"gagal diestimasi ({exc.__class__.__name__}), "
-                    "kemungkinan karena data tidak cukup untuk "
-                    "menaksir suku interaksi tersebut."
-                ),
+                "detail": MancovaService._slopes_failure_detail(df, covariates, exc),
             }
 
         interaction_effect_names = [
@@ -511,14 +506,14 @@ class MancovaService:
         },
         "normalitas_multivariat": {
             "label": "Normalitas (Multivariat)",
-            "meaning": "Data variabel dependen berdistribusi mendekati normal.",
-            "test_name": "Shapiro-Wilk (per variabel dependen)",
+            "meaning": "Sisa perhitungan model (residual) tiap variabel dependen berdistribusi mendekati normal.",
+            "test_name": "Shapiro-Wilk (residual tiap variabel dependen)",
             "met": (
-                "Uji Shapiro-Wilk tidak menolak normalitas pada semua variabel "
+                "Uji Shapiro-Wilk tidak menolak normalitas residual pada semua variabel "
                 "dependen (p terkecil = {p}, di atas 0,05)."
             ),
             "not_met": (
-                "Setidaknya satu variabel dependen menyimpang dari distribusi normal "
+                "Residual setidaknya satu variabel dependen menyimpang dari distribusi normal "
                 "(p terkecil = {p}, di bawah 0,05). Pada sampel yang cukup besar "
                 "MANOVA relatif tahan terhadap pelanggaran ini; Pillai's trace adalah "
                 "statistik yang paling robust."
@@ -569,7 +564,45 @@ class MancovaService:
         },
     }
 
-    _ASSUMPTION_H = {'independensi_pengamatan': (None, None, []), 'linearitas_kovariat_dependen': ('Hubungan kovariat dengan variabel dependen linear (model lurus sudah cukup).', 'Hubungan tidak linear (ada lengkungan yang tidak tertangkap model lurus).', [('transform', 'Transformasi variabel', 'Bila hubungan melengkung, transformasi kovariat atau variabel dependen (mis. log atau akar kuadrat) sering meluruskannya.'), ('info', 'Tambah suku kuadrat kovariat', 'Memasukkan kovariat kuadrat (x²) ke model dapat menangkap hubungan melengkung (di luar fitur sistem saat ini).'), ('info', 'Periksa pencilan', 'Satu-dua titik ekstrem dapat membuat hubungan tampak melengkung. Periksa grafik sebar di atas.')]), 'normalitas_multivariat': ('Data variabel dependen berdistribusi normal.', 'Data variabel dependen tidak berdistribusi normal.', [('transform', 'Transformasi data', 'Log atau akar kuadrat untuk data condong ke kanan (ekor panjang di nilai besar), kuadrat untuk condong ke kiri, atau Box-Cox yang memilih transformasi terbaik otomatis.'), ('info', 'Periksa pencilan', 'Nilai ekstrem sering membuat data tidak normal. Cek apakah salah input; hapus hanya jika memang salah.'), ('info', 'Tambah jumlah sampel', "Dengan sampel yang cukup besar (sekitar 30 data per kelompok atau lebih) hasil MANOVA/MANCOVA cukup tahan terhadap pelanggaran normalitas; Pillai's trace paling robust.")]), 'normalitas_residual': ('Residual model berdistribusi normal.', 'Residual model tidak berdistribusi normal.', [('transform', 'Transformasi data', 'Log atau akar kuadrat untuk data condong ke kanan, kuadrat untuk condong ke kiri, atau Box-Cox. Setelah itu sistem menguji ulang.'), ('info', 'Periksa pencilan', 'Nilai ekstrem sering menyebabkan residual tidak normal. Cek apakah salah input.'), ('info', 'Gunakan uji non-parametrik', 'Bila transformasi tidak membantu, Kruskal-Wallis (untuk 1 faktor) adalah alternatif yang tidak mensyaratkan normalitas (di luar fitur sistem saat ini).')]), 'homogenitas_matriks_kovarians': ('Matriks kovarians variabel dependen sama di semua kelompok.', 'Matriks kovarians berbeda antar kelompok.', [('info', "Gunakan Pillai's trace", "Statistik ini paling tahan terhadap pelanggaran Box's M. Sistem sudah menampilkannya pada tabel hasil; jadikan itu acuan."), ('transform', 'Transformasi data', 'Log atau akar kuadrat sering menyamakan keragaman antar kelompok.'), ('info', 'Seimbangkan ukuran kelompok', "Bila jumlah data tiap kelompok mirip, pelanggaran ini jauh lebih tidak berpengaruh. Catatan: Box's M sangat sensitif, p kecil pada sampel besar sering tidak berdampak praktis.")]), 'homogenitas_ragam': ('Ragam (variasi) variabel dependen sama di semua kelompok.', 'Ragam berbeda di setidaknya satu kelompok.', [('transform', 'Transformasi data', 'Log atau akar kuadrat biasanya menyamakan ragam, terutama bila kelompok dengan rata-rata besar juga memiliki sebaran lebar.'), ('info', 'Seimbangkan ukuran kelompok', 'Dengan jumlah data per kelompok yang mirip, uji F lebih tahan terhadap ragam yang tidak sama.'), ('info', 'Gunakan Welch ANOVA', 'Alternatif yang tidak mensyaratkan ragam sama (di luar fitur sistem saat ini).')]), 'homogenitas_kemiringan_regresi': ('Pengaruh kovariat terhadap dependen sama di semua kelompok (tidak ada interaksi faktor × kovariat).', 'Pengaruh kovariat berbeda antar kelompok (ada interaksi).', [('info', 'Analisis terpisah per kelompok', 'Bila kemiringan berbeda, jalankan analisis untuk tiap kelompok, atau masukkan suku interaksi ke model (di luar fitur sistem saat ini).'), ('transform', 'Transformasi variabel', 'Kadang perbedaan kemiringan hilang setelah variabel ditransformasi.'), ('info', 'Pertimbangkan tanpa kovariat', 'Bila kovariat tidak seragam pengaruhnya, analisis tanpa kovariat (ANOVA/MANOVA) lebih jujur.')])}
+    _ASSUMPTION_H = {'independensi_pengamatan': (None, None, []), 'linearitas_kovariat_dependen': ('Hubungan kovariat dengan variabel dependen linear (model lurus sudah cukup).', 'Hubungan tidak linear (ada lengkungan yang tidak tertangkap model lurus).', [('transform', 'Transformasi variabel', 'Bila hubungan melengkung, transformasi kovariat atau variabel dependen (mis. log atau akar kuadrat) sering meluruskannya.'), ('info', 'Tambah suku kuadrat kovariat', 'Memasukkan kovariat kuadrat (x²) ke model dapat menangkap hubungan melengkung (di luar fitur sistem saat ini).'), ('info', 'Periksa pencilan', 'Satu-dua titik ekstrem dapat membuat hubungan tampak melengkung. Periksa grafik sebar di atas.')]), 'normalitas_multivariat': ('Residual variabel dependen berdistribusi normal.', 'Residual variabel dependen tidak berdistribusi normal.', [('transform', 'Transformasi data', 'Log atau akar kuadrat untuk data condong ke kanan (ekor panjang di nilai besar), kuadrat untuk condong ke kiri, atau Box-Cox yang memilih transformasi terbaik otomatis.'), ('info', 'Periksa pencilan', 'Nilai ekstrem sering membuat data tidak normal. Cek apakah salah input; hapus hanya jika memang salah.'), ('info', 'Tambah jumlah sampel', "Dengan sampel yang cukup besar (sekitar 30 data per kelompok atau lebih) hasil MANOVA/MANCOVA cukup tahan terhadap pelanggaran normalitas; Pillai's trace paling robust.")]), 'normalitas_residual': ('Residual model berdistribusi normal.', 'Residual model tidak berdistribusi normal.', [('transform', 'Transformasi data', 'Log atau akar kuadrat untuk data condong ke kanan, kuadrat untuk condong ke kiri, atau Box-Cox. Setelah itu sistem menguji ulang.'), ('info', 'Periksa pencilan', 'Nilai ekstrem sering menyebabkan residual tidak normal. Cek apakah salah input.'), ('info', 'Gunakan uji non-parametrik', 'Bila transformasi tidak membantu, Kruskal-Wallis (untuk 1 faktor) adalah alternatif yang tidak mensyaratkan normalitas (di luar fitur sistem saat ini).')]), 'homogenitas_matriks_kovarians': ('Matriks kovarians variabel dependen sama di semua kelompok.', 'Matriks kovarians berbeda antar kelompok.', [('info', "Gunakan Pillai's trace", "Statistik ini paling tahan terhadap pelanggaran Box's M. Sistem sudah menampilkannya pada tabel hasil; jadikan itu acuan."), ('transform', 'Transformasi data', 'Log atau akar kuadrat sering menyamakan keragaman antar kelompok.'), ('info', 'Seimbangkan ukuran kelompok', "Bila jumlah data tiap kelompok mirip, pelanggaran ini jauh lebih tidak berpengaruh. Catatan: Box's M sangat sensitif, p kecil pada sampel besar sering tidak berdampak praktis.")]), 'homogenitas_ragam': ('Ragam (variasi) variabel dependen sama di semua kelompok.', 'Ragam berbeda di setidaknya satu kelompok.', [('transform', 'Transformasi data', 'Log atau akar kuadrat biasanya menyamakan ragam, terutama bila kelompok dengan rata-rata besar juga memiliki sebaran lebar.'), ('info', 'Seimbangkan ukuran kelompok', 'Dengan jumlah data per kelompok yang mirip, uji F lebih tahan terhadap ragam yang tidak sama.'), ('info', 'Gunakan Welch ANOVA', 'Alternatif yang tidak mensyaratkan ragam sama (di luar fitur sistem saat ini).')]), 'homogenitas_kemiringan_regresi': ('Pengaruh kovariat terhadap dependen sama di semua kelompok (tidak ada interaksi faktor × kovariat).', 'Pengaruh kovariat berbeda antar kelompok (ada interaksi).', [('info', 'Analisis terpisah per kelompok', 'Bila kemiringan berbeda, jalankan analisis untuk tiap kelompok, atau masukkan suku interaksi ke model (di luar fitur sistem saat ini).'), ('transform', 'Transformasi variabel', 'Kadang perbedaan kemiringan hilang setelah variabel ditransformasi.'), ('info', 'Pertimbangkan tanpa kovariat', 'Bila kovariat tidak seragam pengaruhnya, analisis tanpa kovariat (ANOVA/MANOVA) lebih jujur.')])}
+
+    @staticmethod
+    def _covariate_problem(df, covariates) -> str | None:
+        """Menjelaskan penyebab data kovariat yang membuat model interaksi tidak bisa ditaksir."""
+
+        cov = df[list(covariates)].apply(pd.to_numeric, errors="coerce")
+
+        constant = [c for c in cov.columns if cov[c].nunique(dropna=True) < 2]
+        if constant:
+            return (
+                "Kovariat " + ", ".join(constant) + " bernilai sama di semua baris (konstan), "
+                "sehingga pengaruhnya tidak dapat ditaksir. Keluarkan kovariat tersebut."
+            )
+
+        if cov.shape[1] >= 2:
+            corr = cov.corr().abs()
+            names = list(cov.columns)
+            for i in range(len(names)):
+                for j in range(i + 1, len(names)):
+                    r = corr.iloc[i, j]
+                    if pd.notna(r) and r > 0.999:
+                        return (
+                            f"Kovariat {names[i]} dan {names[j]} berkorelasi hampir sempurna "
+                            f"(r = {r:.3f}), sehingga keduanya tidak dapat dipisahkan oleh model. "
+                            "Pilih salah satu saja sebagai kovariat."
+                        )
+        return None
+
+    @staticmethod
+    def _slopes_failure_detail(df, covariates, exc) -> str:
+        specific = MancovaService._covariate_problem(df, covariates)
+        if specific:
+            return specific
+        return (
+            "Model interaksi kovariat x faktor gagal diestimasi "
+            f"({exc.__class__.__name__}); kemungkinan ada kelompok dengan data terlalu sedikit "
+            "atau kovariat yang saling tumpang tindih."
+        )
 
     @staticmethod
     def _fmt_p(p) -> str:
@@ -739,10 +772,7 @@ class MancovaService:
         except Exception as exc:
             return {
                 "status": "not_evaluated", "statistic": None, "p_value": None,
-                "detail": (
-                    "Model interaksi kovariat x faktor gagal diestimasi "
-                    f"({exc.__class__.__name__}); data mungkin tidak cukup."
-                ),
+                "detail": MancovaService._slopes_failure_detail(df, covariates, exc),
             }
 
         interaction = table[[":" in str(idx) for idx in table.index]]
@@ -783,18 +813,14 @@ class MancovaService:
     def _viz_normality(df, dependent_vars, independent_vars, covariates, multivariate):
         series = []
         for dv in dependent_vars[:4]:
-            if multivariate:
-                values = df[dv].dropna().astype(float)
-                label = dv
-            else:
-                formula = f"{dv} ~ " + " + ".join(
-                    [f"C({v})" for v in independent_vars] + list(covariates)
-                )
-                try:
-                    values = ols(formula, data=df).fit().resid.dropna().astype(float)
-                except Exception:
-                    continue
-                label = f"Residual {dv}"
+            formula = f"{dv} ~ " + " + ".join(
+                [f"C({v})" for v in independent_vars] + list(covariates)
+            )
+            try:
+                values = ols(formula, data=df).fit().resid.dropna().astype(float)
+            except Exception:
+                continue
+            label = f"Residual {dv}"
 
             if len(values) < 3 or values.nunique() < 2:
                 continue
@@ -964,14 +990,15 @@ class MancovaService:
 
         # 3 & 4. Normalitas + homogenitas
         if multivariate:
+            # Normalitas diuji pada RESIDUAL model (faktor + kovariat), bukan data mentah:
+            # data mentah tampak tidak normal hanya karena rata-rata antar kelompok berbeda.
             p_values = []
             for dependent in dependent_vars:
-                series = df[dependent].dropna()
-                if len(series) < 3 or series.nunique() < 2:
-                    continue
-                sample = series.sample(min(len(series), 5000), random_state=42)
-                _, p_value = stats.shapiro(sample)
-                p_values.append(p_value)
+                res = MancovaService._run_normality_residual(
+                    df, dependent, independent_vars, covariates
+                )
+                if res["p_value"] is not None:
+                    p_values.append(res["p_value"])
 
             normality_p = min(p_values) if p_values else None
             tests.append({
@@ -983,7 +1010,7 @@ class MancovaService:
                 ),
                 "statistic": None,
                 "p_value": float(normality_p) if normality_p is not None else None,
-                "detail": "" if p_values else "Data terlalu sedikit atau konstan untuk uji normalitas.",
+                "detail": "" if p_values else "Data terlalu sedikit atau konstan untuk uji normalitas residual.",
             })
 
             box_m = MancovaService._run_box_m_test(

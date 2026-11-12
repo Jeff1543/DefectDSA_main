@@ -57,7 +57,9 @@
     </div>
 
     <details class="col-table-wrap" id="colDetails">
-      <summary>Lihat rincian kolom</summary>
+      <summary>Lihat rincian kolom &amp; ubah tipe data</summary>
+      <p class="type-hint">Tipe kolom terdeteksi otomatis. Ubah bila tidak sesuai, misalnya kode kelompok yang ditulis angka (1, 2, 3) dijadikan <strong>Kategorik</strong>, atau angka yang tersimpan sebagai teks dijadikan <strong>Numerik</strong>.</p>
+      <div class="type-msg" id="typeMsg" hidden role="status"></div>
       <div class="table-scroll">
         <table class="data-table">
           <thead><tr><th>Kolom</th><th>Tipe</th><th>Nilai unik</th><th>Data kosong</th></tr></thead>

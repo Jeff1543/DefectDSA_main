@@ -31,6 +31,12 @@ class CleanRequest(BaseModel):
         return self
 
 
+class ConvertTypeRequest(BaseModel):
+    dataset_id: str
+    column: str
+    to: Literal["numeric", "categorical"]
+
+
 # ============================================================
 # ANALYSIS
 # ============================================================
