@@ -31,7 +31,7 @@
   --shadow-nav: 0px 12px 40px rgba(0, 0, 0, 0.04);
 
   --container-w: 1184px;
-  --navbar-w: 1080px; /* navbar sedikit lebih lebar dari konten */
+  --navbar-w: 950px; /* navbar sedikit lebih lebar dari konten */
 }
 
 * {

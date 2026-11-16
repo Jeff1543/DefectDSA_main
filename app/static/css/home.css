@@ -76,7 +76,7 @@
   grid-template-columns: 0.85fr 1fr;
   gap: 56px;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 0px;
 }
 
 .method-section > * { min-width: 0; }
