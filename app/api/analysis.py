@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, File, UploadFile
+from fastapi import APIRouter, Depends, File, Form, UploadFile
 
 from app.api.deps import get_current_user_optional
 from app.api.schemas.analysis import (
@@ -11,6 +11,7 @@ from app.api.services.file_service import (
     get_dataset,
     convert_column_type,
     get_filename,
+    get_pending_upload,
     is_cleaned,
     upload_dataset,
 )
@@ -22,7 +23,7 @@ from app.api.services.interpretation_service import InterpretationService
 from app.api.services.mancova_service import MancovaService
 from app.api.services.preprocessing_service import clean_dataset
 from app.api.services.user_service import now_iso
-from app.api.utils.errors import MancovaError, VariableError
+from app.api.utils.errors import FileError, MancovaError, VariableError
 from app.api.utils.jsonutil import clean_json
 
 
@@ -42,13 +43,34 @@ def health():
 
 
 @router.post("/upload")
-async def upload(file: UploadFile = File(...)):
+def upload(
+    file: UploadFile | None = File(None),
+    token: str | None = Form(None),
+    sheet: str | None = Form(None),
+):
+    """
+    Dua cara pakai:
+    - kirim `file` (pertama kali). Untuk xlsx dengan beberapa sheet data,
+      jawabannya `needs_sheet: true` beserta daftar sheet dan `token`.
+    - kirim `token` + `sheet` (setelah pengguna memilih), tanpa mengunggah ulang file.
 
-    content = await file.read()
+    Sengaja `def` biasa (bukan async) supaya pembacaan file yang berat berjalan
+    di thread terpisah dan tidak menahan request lain.
+    """
+
+    if token:
+        pending = get_pending_upload(token)
+        filename, content = pending["filename"], pending["content"]
+    elif file is not None:
+        filename, content = file.filename or "", file.file.read()
+    else:
+        raise FileError("Tidak ada file yang dikirim.")
 
     result = upload_dataset(
-        filename=file.filename or "",
+        filename=filename,
         content=content,
+        sheet=sheet or None,
+        token=token or None,
     )
 
     return {

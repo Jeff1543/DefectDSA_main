@@ -904,3 +904,23 @@
 .type-select:disabled { opacity: .55; cursor: progress; }
 .type-msg { margin: 0 0 12px; padding: 10px 14px; border-radius: 12px; font-size: .9rem; background: #eaf4ef; color: #1f5d45; }
 .type-msg.err { background: #fbeaea; color: #8a2b2b; }
+
+/* ---- Pemilih sheet (xlsx dengan beberapa sheet) ---- */
+.sheet-picker { margin-top: 20px; padding: 20px; border: 1px solid var(--gray-200); border-radius: 18px; background: #fff; }
+.sheet-picker h3 { margin: 0 0 4px; font-size: 1.1rem; }
+.sp-sub { margin: 0 0 14px; color: var(--slate-500); font-size: .92rem; }
+.sp-list { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.sp-card { display: block; position: relative; padding: 14px 14px 12px 42px; border: 2px solid var(--gray-200); border-radius: 14px; cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease; background: #fff; }
+.sp-card:hover:not(.disabled) { border-color: var(--slate-400); transform: translateY(-2px); }
+.sp-card.on { border-color: var(--slate-900); box-shadow: 0 8px 22px rgba(46,46,55,.12); }
+.sp-card.disabled { opacity: .55; cursor: not-allowed; }
+.sp-card input { position: absolute; left: 14px; top: 16px; accent-color: var(--slate-900); }
+.sp-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.sp-badge { font-size: .72rem; font-weight: 700; padding: 2px 9px; border-radius: 9999px; background: #e3f1ea; color: #1f5d45; }
+.sp-badge.muted { background: var(--gray-100, #eee); color: var(--slate-500); }
+.sp-preview { overflow: hidden; border-radius: 8px; border: 1px solid var(--gray-200); }
+.sp-preview table { border-collapse: collapse; width: 100%; font-size: .74rem; }
+.sp-preview th, .sp-preview td { padding: 3px 7px; text-align: left; white-space: nowrap; max-width: 90px; overflow: hidden; text-overflow: ellipsis; border-bottom: 1px solid var(--gray-100, #eee); }
+.sp-preview th { background: var(--gray-100, #f3f3f4); font-weight: 700; }
+.sp-empty { font-size: .85rem; color: var(--slate-500); }
+.sp-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 16px; }

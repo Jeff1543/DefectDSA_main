@@ -3,6 +3,7 @@ uvicorn[standard]
 python-multipart
 pandas
 openpyxl
+python-calamine
 numpy
 scipy
 statsmodels

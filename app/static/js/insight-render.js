@@ -17,7 +17,7 @@ const Insight = (() => {
 
     if (fac.length) {
       html += `<div class="ch-row">${fac
-        .map((v) => `<div class="ch-box"><h5>Sebaran ${esc(v.dv)} menurut ${esc(v.factor)}</h5>${Charts.boxGroups(v.groups)}</div>`)
+        .map((v) => `<div class="ch-box"><h5>Sebaran ${esc(v.dv)} menurut ${esc(v.factor)}</h5>${Charts.boxGroups(v.groups, { xLabel: v.factor + " (sumbu X)", yLabel: v.dv + " (sumbu Y)" })}</div>`)
         .join("")}</div>${boxLegend()}`;
     }
     if (cov.length) {

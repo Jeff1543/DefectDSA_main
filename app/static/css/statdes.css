@@ -47,6 +47,7 @@
 .hist-bar { fill: var(--slate-700); }
 .hist-bar:hover { fill: var(--slate-900); }
 .ax { stroke: var(--gray-200); stroke-width: 1; }
+.at { fill: var(--slate-700); font-size: 11px; font-weight: 600; font-family: inherit; }
 .tx { fill: var(--slate-500); font-size: 10px; font-family: inherit; }
 .box-line { stroke: var(--slate-700); stroke-width: 1.6; }
 .box-box { fill: var(--surface-card); stroke: var(--slate-900); stroke-width: 1.6; }

@@ -84,11 +84,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showError("");
     uploadBtn.disabled = true;
     const label = uploadBtn.textContent;
-    uploadBtn.textContent = "Mengunggah…";
+    uploadBtn.textContent = "Mengunggah & membaca file…";
     try {
-      const form = new FormData();
-      form.append("file", selectedFile);
-      const data = await Api.upload("/api/upload", form);
+      const data = await SheetPicker.upload(selectedFile, $("sheetPicker"));
+      if (!data) return; // pengguna membatalkan pemilihan sheet
       save({ datasetId: data.dataset_id, filename: selectedFile.name, profile: data.profile, result: null, selected: null, groupBy: "" });
       renderStep2();
     } catch (err) {
@@ -200,27 +199,31 @@ document.addEventListener("DOMContentLoaded", () => {
   // ======================================================================
   const f = (n, d = 3) => RS.fmtNum(n, d);
 
-  function histogramSvg(h, mean) {
-    const W = 420, H = 190, pl = 30, pr = 8, pt = 8, pb = 26;
+  function histogramSvg(h, mean, name) {
+    const W = 440, H = 240, pl = 54, pr = 10, pt = 14, pb = 50;
     const max = Math.max(...h.counts, 1);
     const n = h.counts.length;
     const bw = (W - pl - pr) / n;
     const lo = h.edges[0], hi = h.edges[n];
     const x = (v) => pl + ((v - lo) / (hi - lo)) * (W - pl - pr);
+    const yv = (c) => H - pb - ((H - pt - pb) * c) / max;
     const bars = h.counts
       .map((c, i) => {
         const bh = ((H - pt - pb) * c) / max;
-        return `<rect class="hist-bar" x="${(pl + i * bw + 1).toFixed(1)}" y="${(H - pb - bh).toFixed(1)}" width="${(bw - 2).toFixed(1)}" height="${bh.toFixed(1)}" rx="2"><title>${f(h.edges[i], 2)} – ${f(h.edges[i + 1], 2)}: ${c} data</title></rect>`;
+        return `<rect class="hist-bar" x="${(pl + i * bw + 1).toFixed(1)}" y="${(H - pb - bh).toFixed(1)}" width="${(bw - 2).toFixed(1)}" height="${bh.toFixed(1)}" rx="2"><title>${f(h.edges[i], 2)} – ${f(h.edges[i + 1], 2)}: ${c} data</title></rect>` +
+          (c > 0 ? `<text class="tx" x="${(pl + i * bw + bw / 2).toFixed(1)}" y="${(H - pb - bh - 3).toFixed(1)}" text-anchor="middle">${c}</text>` : "");
       })
       .join("");
+    const yt = `<text class="at" x="${(pl + W - pr) / 2}" y="${H - 4}" text-anchor="middle">${esc(name)} (sumbu X)</text>` +
+      `<text class="at" transform="translate(11 ${(pt + H - pb) / 2}) rotate(-90)" text-anchor="middle">Frekuensi = jumlah data (sumbu Y)</text>`;
+    const yTicks = [0, 0.25, 0.5, 0.75, 1].map((q) => Math.round(max * q)).filter((v, i, a) => a.indexOf(v) === i)
+      .map((v) => `<line class="ch-grid" x1="${pl}" x2="${W - pr}" y1="${yv(v)}" y2="${yv(v)}" stroke="#e5e5ea"/><text class="tx" x="${pl - 6}" y="${yv(v) + 3}" text-anchor="end">${v}</text>`).join("");
+    const xTicks = [0, 0.25, 0.5, 0.75, 1].map((q) => lo + (hi - lo) * q)
+      .map((v) => `<line class="ax" x1="${x(v)}" x2="${x(v)}" y1="${H - pb}" y2="${H - pb + 4}"/><text class="tx" x="${x(v)}" y="${H - pb + 15}" text-anchor="middle">${f(v, 2)}</text>`).join("");
     const meanLine = mean !== null && mean >= lo && mean <= hi ? `<line x1="${x(mean)}" x2="${x(mean)}" y1="${pt}" y2="${H - pb}" stroke="#8a3329" stroke-dasharray="4 3" stroke-width="1.5"/>` : "";
-    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histogram">
-      <line class="ax" x1="${pl}" x2="${W - pr}" y1="${H - pb}" y2="${H - pb}"/>
-      <text class="tx" x="${pl - 6}" y="${pt + 8}" text-anchor="end">${max}</text>
-      <text class="tx" x="${pl - 6}" y="${H - pb}" text-anchor="end">0</text>
-      ${bars}${meanLine}
-      <text class="tx" x="${pl}" y="${H - 8}">${f(lo, 2)}</text>
-      <text class="tx" x="${W - pr}" y="${H - 8}" text-anchor="end">${f(hi, 2)}</text>
+    return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Histogram ${esc(name)}">
+      ${yTicks}<line class="ax" x1="${pl}" x2="${W - pr}" y1="${H - pb}" y2="${H - pb}"/>
+      ${bars}${meanLine}${xTicks}${yt}
     </svg>`;
   }
 
@@ -274,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div class="sd-var-body">
         <table class="sd-stats"><tbody>${rows}</tbody></table>
         <div class="sd-charts">
-          ${v.histogram ? `${histogramSvg(v.histogram, v.mean)}<p class="cap">Histogram (garis putus-putus = rata-rata)</p>` : '<p class="cap">Semua nilai sama sehingga histogram tidak dibuat.</p>'}
+          ${v.histogram ? `${histogramSvg(v.histogram, v.mean, v.name)}<p class="cap">Histogram: batang = jumlah data pada tiap rentang nilai (angka di atas batang), garis merah putus-putus = rata-rata (${f(v.mean, 2)}).</p>` : '<p class="cap">Semua nilai sama sehingga histogram tidak dibuat.</p>'}
           ${boxplotSvg(v)}${v.max !== v.min ? '<p class="cap">Boxplot: kotak = Q1–Q3, garis tebal = median, berlian = rata-rata</p>' : ""}
           <div class="sd-read">${esc(shapeText(v)) || "Data terlalu sedikit untuk menilai bentuk sebaran."}</div>
         </div>

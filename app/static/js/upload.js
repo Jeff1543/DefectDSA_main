@@ -90,12 +90,16 @@ document.addEventListener("DOMContentLoaded", () => {
     showError("");
     runBtn.disabled = true;
     const label = runBtn.textContent;
-    runBtn.textContent = "Mengunggah…";
+    runBtn.textContent = "Mengunggah & membaca file…";
 
     try {
-      const form = new FormData();
-      form.append("file", selectedFile);
-      const data = await Api.upload("/api/upload", form);
+      const data = await SheetPicker.upload(selectedFile, document.getElementById("sheetPicker"));
+      if (!data) {
+        // Pengguna membatalkan pemilihan sheet.
+        runBtn.disabled = false;
+        runBtn.textContent = label;
+        return;
+      }
 
       RS.reset();
       RS.save({

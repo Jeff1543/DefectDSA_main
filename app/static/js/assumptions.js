@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         .join("")}</div></div>`;
     }
     if (v.type === "group_box") {
-      return `<div class="as-viz"><div class="ch-box"><h5>Sebaran ${esc(v.variable)} tiap kelompok</h5>${Charts.boxGroups(v.groups)}
+      return `<div class="as-viz"><div class="ch-box"><h5>Sebaran ${esc(v.variable)} tiap kelompok</h5>${Charts.boxGroups(v.groups, { xLabel: "Kelompok (sumbu X)", yLabel: v.variable + " (sumbu Y)" })}
         <p class="ch-cap">Bila tinggi kotak (sebaran data) tiap kelompok mirip, ragamnya homogen. Kotak yang jauh lebih tinggi/pendek menandakan ragam berbeda.</p></div></div>`;
     }
     if (v.type === "group_sd") {
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const seg = (n, cls) => (n ? `<span class="${cls}" style="width:${(n / total) * 100}%"></span>` : "");
 
     const headline = bad.length
-      ? "Asumsi yang terpenuhi"
+      ? "Ada asumsi yang belum terpenuhi"
       : met.length === 0
       ? "Belum ada asumsi yang dapat diuji otomatis"
       : "Semua asumsi yang dapat diuji terpenuhi";

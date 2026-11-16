@@ -10,6 +10,7 @@ dependencies = [
     "python-multipart",
     "pandas",
     "openpyxl",
+    "python-calamine",
     "numpy",
     "scipy",
     "statsmodels",

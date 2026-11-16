@@ -152,6 +152,7 @@
 .ch-axis { stroke: var(--slate-400); stroke-width: 1; }
 .ch-whisker { stroke: var(--slate-600); stroke-width: 1.5; }
 .ch-tx { fill: var(--slate-600); font-size: 10.5px; font-family: inherit; }
+.ch-at { fill: var(--slate-700); font-size: 11px; font-weight: 600; font-family: inherit; }
 .ch-tx2 { fill: var(--slate-500); font-size: 10px; font-family: inherit; }
 .ch-bar { fill: var(--slate-700); fill-opacity: 0.85; }
 .ch-bar:hover { fill-opacity: 1; }
