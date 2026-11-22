@@ -328,8 +328,39 @@ document.addEventListener("DOMContentLoaded", () => {
         return `<tr><th class="row">${esc(v)}</th>${cells}</tr>`;
       })
       .join("");
-    return `<div class="sd-sec"><h2>Korelasi antar variabel numerik</h2><p class="sub">Korelasi Pearson (−1 sampai 1). Semakin pekat warnanya, semakin kuat hubungannya. Korelasi bukan bukti sebab-akibat.</p>
+    return `<div class="sd-sec" id="heatSec"><div class="sec-head"><div><h2>Korelasi antar variabel numerik</h2><p class="sub">Korelasi Pearson (−1 sampai 1). Semakin pekat warnanya, semakin kuat hubungannya. Korelasi bukan bukti sebab-akibat.</p></div>
+      <button type="button" class="btn btn-secondary btn-sm fs-btn" id="heatFsBtn" aria-pressed="false">⛶ Layar penuh</button></div>
       <div class="table-scroll"><table class="heat"><thead><tr><th></th>${head}</tr></thead><tbody>${rows}</tbody></table></div></div>`;
+  }
+
+  // Tombol layar penuh untuk tabel korelasi (Fullscreen API; cadangan: mode overlay CSS).
+  function setupHeatFullscreen() {
+    const sec = document.getElementById("heatSec"), btn = document.getElementById("heatFsBtn");
+    if (!sec || !btn) return;
+    const isFs = () => document.fullscreenElement === sec || sec.classList.contains("is-fs");
+    const paint = () => {
+      const on = isFs();
+      btn.textContent = on ? "✕ Keluar layar penuh" : "⛶ Layar penuh";
+      btn.setAttribute("aria-pressed", String(on));
+    };
+    const exit = () => {
+      if (document.fullscreenElement === sec) document.exitFullscreen();
+      sec.classList.remove("is-fs");
+      document.body.classList.remove("fs-lock");
+      paint();
+    };
+    btn.addEventListener("click", () => {
+      if (isFs()) return exit();
+      if (sec.requestFullscreen) {
+        sec.requestFullscreen().catch(() => { sec.classList.add("is-fs"); document.body.classList.add("fs-lock"); paint(); });
+      } else {
+        sec.classList.add("is-fs");
+        document.body.classList.add("fs-lock");
+      }
+      paint();
+    });
+    document.addEventListener("fullscreenchange", paint);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape" && sec.classList.contains("is-fs")) exit(); });
   }
 
   function renderResult(r) {
@@ -360,6 +391,7 @@ document.addEventListener("DOMContentLoaded", () => {
       <div style="text-align:center;margin-top:24px;"><a href="statdes.html" id="newBtn" class="btn-link" style="text-decoration:underline;">Analisis file baru</a></div>
     </div>`;
 
+    setupHeatFullscreen();
     $("backBtn").addEventListener("click", () => renderStep2());
     $("printBtn").addEventListener("click", () => window.print());
     $("newBtn").addEventListener("click", (e) => {
